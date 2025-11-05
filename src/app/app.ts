@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
       <a routerLink="/home" routerLinkActive="text-white">Home</a>
       <a routerLink="/login" routerLinkActive="text-white">Login</a>
       <a routerLink="/habits" routerLinkActive="text-white">Habits</a>
+      <a routerLink="/profile" routerLinkActive="text-white">Profile</a>
     </nav>
 
     <main>

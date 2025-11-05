@@ -30,6 +30,7 @@ export class Login {
 
       this.userService.login(user).subscribe({
         next: (res) => {
+          localStorage.setItem('user', JSON.stringify(res.user));
           console.log('✅ Login correcto:', res);
         },
         error: (err) => {
