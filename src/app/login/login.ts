@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {User, UserService} from './login.service';
+import { Store } from '@ngrx/store';
+import { loginUser } from '../state/user.actions';
+import { selectUser } from '../state/user.selectors';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +15,7 @@ import {User, UserService} from './login.service';
 })
 export class Login {
   isLoginMode = true;
+  user$!: Observable<User | null>;
 
   toggleMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -20,7 +25,9 @@ export class Login {
     return window.innerWidth >= 768; // md breakpoint
   }
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,
+              private store: Store) {}
+
 
   onSubmit(form: any) {
     const user: User = form.value;
@@ -30,7 +37,8 @@ export class Login {
 
       this.userService.login(user).subscribe({
         next: (res) => {
-          localStorage.setItem('user', JSON.stringify(res.user));
+          const user: User = res.user
+          this.store.dispatch(loginUser({ user }));
           console.log('✅ Login correcto:', res);
         },
         error: (err) => {

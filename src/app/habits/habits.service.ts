@@ -1,6 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, switchMap, take} from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectUser } from '../state/user.selectors';
+import {User} from '../login/login.service';
 
 
 export interface HabitsModel {
@@ -25,13 +28,24 @@ export interface HabitsModel {
 })
 export class HabitsService {
 
-  user = JSON.parse(localStorage.getItem('user')!);
+  user$!: Observable<User | null>;
 
-  private apiUrl = 'https://habitstracker-api-8g6h.onrender.com/api/reports';
+  constructor(private http: HttpClient, private store: Store) {
+    this.user$ = this.store.select(selectUser);
+  }
 
-  constructor(private http: HttpClient) {}
+  private apiBaseUrl = 'https://habitstracker-api-8g6h.onrender.com/api/reports';
 
   createReport(data: HabitsModel): Observable<any> {
-    return this.http.post(this.apiUrl, data);
+    return this.user$.pipe(
+      take(1),
+      switchMap(user => {
+        if (!user) {
+          throw new Error('Usuario no logueado');
+        }
+        const apiUrl = `${this.apiBaseUrl}/${user.name}`;
+        return this.http.post(apiUrl, data);
+      })
+    );
   }
 }

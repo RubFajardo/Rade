@@ -108,6 +108,14 @@ export class Profile {
     }
   ];
 
+  currentMonth: number = new Date().getMonth() + 1;
+  currentYear: number = new Date().getFullYear();
+  selectedDate: string | null = null;
+
+  onMonthChange(date: Date) {
+    this.currentMonth = date.getMonth() + 1;
+    this.currentYear = date.getFullYear();
+  }
 
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin],
@@ -120,21 +128,47 @@ export class Profile {
       right: '',
     },
     dateClick: (info) => this.onDateClick(info.dateStr),
+    datesSet: (arg) => this.onMonthChange(arg.view.currentStart),
     dayCellDidMount: (arg) => {
-      const habit = this.habitsData.find(h => h.date === arg.date.toISOString().split('T')[0]);
+      // Fecha actual
+      const y = arg.date.getFullYear();
+      const m = String(arg.date.getMonth() + 1).padStart(2, '0');
+      const d = String(arg.date.getDate()).padStart(2, '0');
+      const cellDate = `${y}-${m}-${d}`;
+
+      // Busca el registro por esa fecha
+      const habit = this.habitsData.find(h => h.date === cellDate);
+
       if (habit) {
-        arg.el.style.backgroundColor = habit.trained ? '#bbf7d0' : '#fecaca'; // verde o rojo claro
+        arg.el.style.backgroundColor = habit.trained ? '#bbf7d0' : '#fecaca';
         arg.el.style.borderRadius = '8px';
         arg.el.style.transition = 'all 0.2s';
       } else {
-        arg.el.style.backgroundColor = 'white'; // sin registro = blanco
+        arg.el.style.backgroundColor = 'white';
       }
+
     }
   };
 
   onDateClick(dateStr: string) {
-    console.log('📅 Día seleccionado:', dateStr);
+    console.log('Día seleccionado:', dateStr);
+    this.selectedDate = dateStr
     // GET a la API
+  }
+
+  get filteredHabits() {
+    return this.habitsData.filter(h => {
+      const habitDate = new Date(h.date);
+      const sameMonth = habitDate.getMonth() + 1 === this.currentMonth;
+      const sameYear = habitDate.getFullYear() === this.currentYear;
+      const sameDay = !this.selectedDate || h.date === this.selectedDate;
+
+      return sameMonth && sameYear && sameDay;
+    });
+  }
+
+  resetCalendar() {
+    this.selectedDate = null;
   }
 
   user = {
