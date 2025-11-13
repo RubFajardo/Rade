@@ -34,7 +34,7 @@ export class HabitsService {
     this.user$ = this.store.select(selectUser);
   }
 
-  private apiBaseUrl = 'https://habitstracker-api-8g6h.onrender.com/api/reports';
+  private apiBaseUrl = 'https://habitstracker-api-8g6h.onrender.com/api/reports/user';
 
   createReport(data: HabitsModel): Observable<any> {
     return this.user$.pipe(
@@ -43,7 +43,7 @@ export class HabitsService {
         if (!user) {
           throw new Error('Usuario no logueado');
         }
-        const apiUrl = `${this.apiBaseUrl}/${user.name}`;
+        const apiUrl = `${this.apiBaseUrl}/${user.id}`;
         return this.http.post(apiUrl, data);
       })
     );

@@ -33,11 +33,11 @@ export class Login {
     const user: User = form.value;
 
     if (this.isLoginMode) {
-      console.log('Iniciando sesión con:', user);
+
 
       this.userService.login(user).subscribe({
         next: (res) => {
-          const user: User = res.user
+          const user: User = res
           this.store.dispatch(loginUser({ user }));
           console.log('✅ Login correcto:', res);
         },

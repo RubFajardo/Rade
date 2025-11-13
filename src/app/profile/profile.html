@@ -17,8 +17,8 @@
 
       <!-- Nombre y correo -->
       <div class="text-center">
-        <h2 class="text-2xl font-semibold">{{ user.name || 'Nombre del usuario' }}</h2>
-        <p class="text-blue-100">{{ user.email || 'email@ejemplo.com' }}</p>
+        <h2 class="text-2xl font-semibold">{{ (user$ | async)?.name || 'Nombre de usuario' }} </h2>
+        <p class="text-blue-100">{{ (user$ | async)?.email || 'Email' }}</p>
       </div>
 
       <!-- Botón editar perfil (opcional) -->

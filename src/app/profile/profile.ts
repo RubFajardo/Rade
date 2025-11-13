@@ -5,6 +5,11 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {HabitsModel} from '../habits/habits.service';
+import {Observable} from 'rxjs';
+import {User} from '../login/login.service';
+import {HttpClient} from '@angular/common/http';
+import {Store} from '@ngrx/store';
+import {selectUser} from '../state/user.selectors';
 
 @Component({
   selector: 'app-profile',
@@ -111,10 +116,15 @@ export class Profile {
   currentMonth: number = new Date().getMonth() + 1;
   currentYear: number = new Date().getFullYear();
   selectedDate: string | null = null;
+  user$!: Observable<User | null>;
 
   onMonthChange(date: Date) {
     this.currentMonth = date.getMonth() + 1;
     this.currentYear = date.getFullYear();
+  }
+
+  constructor(private http: HttpClient, private store: Store) {
+    this.user$ = this.store.select(selectUser);
   }
 
   calendarOptions: CalendarOptions = {
@@ -170,10 +180,4 @@ export class Profile {
   resetCalendar() {
     this.selectedDate = null;
   }
-
-  user = {
-    name: 'Juan Pérez',
-    email: 'juanperez@example.com',
-    image: "https://preview.redd.it/yall-want-some-profile-pictures-v0-f6dsujppx9ze1.jpg?width=640&crop=smart&auto=webp&s=24f135e791451032264ecac063ed6787388e73b2",
-  };
 }
