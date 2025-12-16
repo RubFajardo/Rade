@@ -1,59 +1,88 @@
-# HabitsTracker
+# 🚀 Rade: Tu Diario Digital de Hábitos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.5.
+Una plataforma moderna diseñada para ayudarte a tomar el control de tus hábitos de bienestar sin la complejidad de las herramientas de *tracking* tradicionales. **Wellness Tracker** te permite monitorizar tu ejercicio, sueño y dieta de forma sencilla e intuitiva.
 
-## Development server
+Construido con una arquitectura robusta: **Angular** para un *frontend* rápido y reactivo, **Tailwind CSS** para un diseño limpio y moderno, y **Spring Boot** para un *backend* seguro y escalable.
 
-To start a local development server, run:
+## 🛠 Tecnologías Utilizadas
 
-```bash
-ng serve
-```
+Este proyecto está dividido en dos partes principales:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Frontend (Cliente Web)
 
-## Code scaffolding
+| Tecnología | Descripción |
+| :--- | :--- |
+| **Angular** | Framework principal para construir la interfaz de usuario (SPA). |
+| **TypeScript** | Lenguaje para una base de código más limpia y mantenible. |
+| **Tailwind CSS** | Framework de CSS *utility-first* para un diseño rápido y responsive. |
+| **npm** | Gestor de paquetes y automatización de tareas. |
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Backend (Servicio API)
 
-```bash
-ng generate component component-name
-```
+| Tecnología | Descripción | |
+| :--- | :--- | :--- |
+| **Spring Boot** | Framework para el desarrollo de la API REST robusta y con configuración mínima. |
+| **Spring Security** | Manejo de autenticación (JWT/OAuth2) y autorización. |
+| **Java** | Lenguaje de programación principal. |
+| **Gradle** | Herramienta de gestión de dependencias y construcción de proyectos. |
+| **PostgreSQL** | Base de datos relacional para almacenamiento de datos de hábitos y usuarios. |
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## ⚙️ Configuración y Ejecución Local
 
-```bash
-ng generate --help
-```
+Sigue estos pasos para poner en marcha el proyecto en tu entorno de desarrollo.
 
-## Building
+### 1\. Requisitos Previos
 
-To build the project run:
+Asegúrate de tener instalado:
 
-```bash
-ng build
-```
+  * **Node.js & npm** (para Angular)
+  * **Java 17 o superior** (para Spring Boot)
+  * **Gradle** 
+  * Una instancia de **PostgreSQL** 
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### 2\. Configuración del Backend (Spring Boot)
 
-## Running unit tests
+1.  Clona el repositorio:
+    ```bash
+    git clone github.com/RubFajardo/Rade.git
+    ```
+2.  **Configura la Base de Datos:**
+      * Crea una base de datos llamada `rade_db`.
+      * Edita el archivo `src/main/resources/application.properties` con tus credenciales:
+        ```properties
+        spring.datasource.url=jdbc:postgresql://localhost:5432/rade_db
+        spring.datasource.username=tu_usuario_bd
+        spring.datasource.password=tu_contraseña_bd
+        spring.jpa.hibernate.ddl-auto=update
+        ```
+3.  **Ejecuta el Backend:**
+    ```bash
+    mvn spring-boot:run
+    ```
+    El API estará disponible en `http://localhost:8080`.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### 3\. Configuración del Frontend (Angular)
 
-```bash
-ng test
-```
+1.  Navega al directorio del *frontend*:
+    ```bash
+    cd ../frontend
+    ```
+2.  Instala las dependencias:
+    ```bash
+    npm install
+    ```
+3.  Ejecuta el Servidor de Desarrollo:
+    ```bash
+    ng serve -o
+    ```
+    La aplicación se abrirá automáticamente en tu navegador en `http://localhost:4200`.
 
-## Running end-to-end tests
+## 🤝 Contribuciones
 
-For end-to-end (e2e) testing, run:
+¡Las contribuciones son bienvenidas\! Si deseas mejorar el código, añadir nuevas características o reportar *bugs*, por favor sigue los pasos a continuación:
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1.  Haz un *Fork* del repositorio.
+2.  Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
+3.  Haz tus cambios y *commit* (`git commit -m 'feat: Añadir X'`).
+4.  Sube tus cambios (`git push origin feature/nueva-funcionalidad`).
+5.  Abre un *Pull Request*.
