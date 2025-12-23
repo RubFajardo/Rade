@@ -1,20 +1,21 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 import {User, UserService} from './login.service';
-import { Store } from '@ngrx/store';
-import { loginUser } from '../state/user.actions';
-import { selectUser } from '../state/user.selectors';
+import {Store} from '@ngrx/store';
+import {loginUser} from '../state/user.actions';
 import {Observable} from 'rxjs';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class Login {
   isLoginMode = true;
+  showPassword = false;
   user$!: Observable<User | null>;
 
   toggleMode() {
@@ -26,7 +27,8 @@ export class Login {
   }
 
   constructor(private userService: UserService,
-              private store: Store) {}
+              private store: Store) {
+  }
 
 
   onSubmit(form: any) {
@@ -38,7 +40,7 @@ export class Login {
       this.userService.login(user).subscribe({
         next: (res) => {
           const user: User = res
-          this.store.dispatch(loginUser({ user }));
+          this.store.dispatch(loginUser({user}));
           console.log('✅ Login correcto:', res);
         },
         error: (err) => {

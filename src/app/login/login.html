@@ -1,149 +1,172 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-  <div
-    class="relative w-[95vw] h-auto md:h-[90vh] max-w-[1200px] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row transition-all duration-700"
-  >
-    <!-- Panel Login -->
-    <div
-      class="w-full md:w-1/2 flex flex-col justify-center items-center p-8 transition-all duration-500"
-    >
-      <h2 class="text-2xl font-semibold text-gray-800 mb-6">Iniciar Sesión</h2>
+<div class="relative w-screen h-screen flex overflow-hidden ">
 
-      <form
-        #loginForm="ngForm"
-        (ngSubmit)="onSubmit(loginForm)"
-        class="w-full max-w-sm"
-      >
-        <div class="mb-4">
-          <label class="block text-gray-700 mb-1">Nombre</label>
-          <input
-            type="text"
-            name="name"
-            ngModel
-            required
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+  <!-- Panel Izquierdo - Visual -->
+  <div class="hidden md:w-1/2 md:flex  bg-gradient-to-t from-[#FFD22A]  to-[#FF3B1F]  relative overflow-hidden">
 
-        <div class="mb-4">
-          <label class="block text-gray-700 mb-1">Email</label>
+    <img
+      src="assets/gymgirl.png"
+      alt="Photography"
+      class="absolute bottom-0 -right-40 w-4xl h-auto object-contain  "
+    />
+    <!-- Content -->
+    <div class="relative z-10 flex flex-col justify-end p-12 text-[#1a1a1a]">
+
+      <!-- Main Text -->
+      <div>
+        <h1 class="text-5xl font-bold leading-tight mb-4 text-[2rem] md:text-[3rem] lg:text-[4rem] ">
+          Capturing Moments,<br/>
+          Creating Memories
+        </h1>
+        <button
+          routerLink="/"
+          class="self-start flex items-center gap-2 font-medium hover:underline"
+        >
+          <span>← Back to website</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Panel Derecho - Formulario -->
+  <div class="w-full md:w-1/2 flex flex-col justify-center p-8 md:p-12">
+    <!-- Mobile Back Button -->
+
+
+    <div class="w-full max-w-md mx-auto">
+      <h2 class="text-3xl font-bold text-white mb-2">
+        {{ isLoginMode ? 'Welcome back' : 'Create an account' }}
+      </h2>
+      <p class="text-gray-400 mb-8">
+        @if (isLoginMode) {
+          <span>Don't have an account? <button (click)="toggleMode()"
+                                               class="text-[#FFD22A] hover:underline">Sign up</button></span>
+        } @else {
+          <span>Already have an account? <button (click)="toggleMode()"
+                                                 class="text-[#FFD22A] hover:underline">Log in</button></span>
+        }
+      </p>
+      <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="space-y-6">
+        @if (!isLoginMode) {
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="text-sm font-semibold text-gray-400 uppercase tracking-wide">Nombre</label>
+              <input
+                type="text"
+                name="firstName"
+                ngModel
+                required
+                placeholder="Juan"
+                class="w-full px-6 py-4 bg-[#2a2a2a] text-white text-lg rounded-xl border-2 border-transparent focus:border-amber-400 focus:ring-0 outline-none transition-all duration-300 placeholder:text-gray-500"
+              />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-semibold text-gray-400 uppercase tracking-wide">Apellido</label>
+              <input
+                type="text"
+                name="lastName"
+                ngModel
+                required
+                placeholder="Pérez"
+                class="w-full px-6 py-4 bg-[#2a2a2a] text-white text-lg rounded-xl border-2 border-transparent focus:border-amber-400 focus:ring-0 outline-none transition-all duration-300 placeholder:text-gray-500"
+              />
+            </div>
+          </div>
+        }
+
+        <div class="space-y-2">
+          <label class="text-sm font-semibold text-gray-400 uppercase tracking-wide">Email</label>
           <input
             type="email"
             name="email"
             ngModel
             required
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="juan@ejemplo.com"
+            class="w-full px-6 py-4 bg-[#2a2a2a] text-white text-lg rounded-xl border-2 border-transparent focus:border-amber-400 focus:ring-0 outline-none transition-all duration-300 placeholder:text-gray-500"
           />
         </div>
 
-        <div class="mb-6">
-          <label class="block text-gray-700 mb-1">Contraseña</label>
-          <input
-            type="password"
-            name="password"
-            ngModel
-            required
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+        <div class="space-y-2">
+          <label class="text-sm font-semibold text-gray-400 uppercase tracking-wide">Contraseña</label>
+          <div class="relative">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              name="password"
+              ngModel
+              required
+              placeholder="Ingresa tu contraseña"
+              class="w-full px-6 py-4 bg-[#2a2a2a] text-white text-lg rounded-xl border-2 border-transparent focus:border-amber-400 focus:ring-0 outline-none transition-all duration-300 placeholder:text-gray-500"
+            />
+            <button
+              type="button"
+              (click)="showPassword = !showPassword"
+              class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                @if (showPassword) {
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                } @else {
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                }
+              </svg>
+            </button>
+          </div>
         </div>
+
+        @if (!isLoginMode) {
+          <div class="flex items-start gap-3">
+            <input
+              type="checkbox"
+              name="terms"
+              ngModel
+              required
+              class="w-5 h-5 mt-1 rounded border-2 border-gray-600 bg-[#2a2a2a] text-amber-400 focus:ring-2 focus:ring-amber-400 focus:ring-offset-0 cursor-pointer"
+            />
+            <label class="text-sm text-gray-400 leading-relaxed">
+              Acepto los <a href="#" class="text-amber-400 hover:underline font-semibold">Términos y Condiciones</a>
+            </label>
+          </div>
+        }
 
         <button
           type="submit"
-          class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+          class="w-full bg-amber-400 text-[#1a1a1a] font-bold text-lg py-4 rounded-xl transition-all duration-300 hover:scale-[1.02]"
         >
-          Entrar
+          {{ isLoginMode ? 'Iniciar sesión' : 'Crear cuenta' }}
         </button>
       </form>
-    </div>
 
-    <!-- Panel Registro -->
-    <div
-      class="w-full md:w-1/2 flex flex-col justify-center items-center p-8 transition-all duration-500"
-    >
-      <h2 class="text-2xl font-semibold text-gray-800 mb-6">Crear Cuenta</h2>
-
-      <form
-        #registerForm="ngForm"
-        (ngSubmit)="onSubmit(registerForm)"
-        class="w-full max-w-sm"
-      >
-        <div class="mb-4">
-          <label class="block text-gray-700 mb-1">Nombre</label>
-          <input
-            type="text"
-            name="name"
-            ngModel
-            required
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        <div class="mb-4">
-          <label class="block text-gray-700 mb-1">Email</label>
-          <input
-            type="email"
-            name="email"
-            ngModel
-            required
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        <div class="mb-6">
-          <label class="block text-gray-700 mb-1">Contraseña</label>
-          <input
-            type="password"
-            name="password"
-            ngModel
-            required
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+      <!-- Social Login -->
+      <div class="mt-8">
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-700"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-4 bg-[#1a1a1a] text-gray-400">O continúa con</span>
+          </div>
         </div>
 
         <button
-          type="submit"
-          class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
-        >
-          Registrarse
+          type="button"
+          class="flex items-center justify-center gap-3 px-6 py-4 mt-6 w-full bg-[#2a2a2a] text-white text-lg rounded-xl border-2 border-transparent hover:border-amber-400 transition-all duration-300">
+          <svg class="w-5 h-5" viewBox="0 0 24 24">
+            <path fill="currentColor"
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="currentColor"
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="currentColor"
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="currentColor"
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          <span class="font-semibold">Google</span>
         </button>
-      </form>
-    </div>
-
-    <!-- Cover deslizante -->
-    <div
-      class="absolute top-0 left-0 bg-gradient-to-r from-blue-600 to-blue-400 text-white flex flex-col items-center justify-center text-center p-8 transition-transform duration-700 ease-in-out z-20
-         w-full h-1/2 md:w-1/2 md:h-full"
-      [ngClass]="{
-
-    'md:translate-x-full md:translate-y-0': isLoginMode && isDesktop,
-
-    'translate-y-full md:translate-x-0': isLoginMode && !isDesktop,
-
-    'translate-x-0 translate-y-0': !isLoginMode
-  }"
-    >
-      @if (isLoginMode) {
-        <div>
-          <h2 class="text-3xl font-bold mb-3">¿Nuevo aquí?</h2>
-          <p class="mb-6">Empieza con nosotros y crea tu cuenta</p>
-          <button
-            (click)="toggleMode()"
-            class="px-6 py-2 border border-white rounded-lg hover:bg-white hover:text-blue-600 transition"
-          >
-            Crear cuenta
-          </button>
-        </div>
-      } @else {
-        <div>
-          <h2 class="text-3xl font-bold mb-3">¿Ya tienes cuenta?</h2>
-          <p class="mb-6">Inicia sesión para continuar</p>
-          <button
-            (click)="toggleMode()"
-            class="px-6 py-2 border border-white rounded-lg hover:bg-white hover:text-blue-600 transition"
-          >
-            Iniciar sesión
-          </button>
-        </div>
-      }
+      </div>
     </div>
   </div>
 </div>
