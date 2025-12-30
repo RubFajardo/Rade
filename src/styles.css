@@ -1,2 +1,59 @@
 @import "tailwindcss";
 
+/* profile.css */
+/* Estilos del calendario para que combine con el tema oscuro */
+:host ::ng-deep {
+  .fc {
+    background: #1a1a1a;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  .fc-theme-standard .fc-scrollgrid {
+    border-color: #2a2a2a;
+  }
+
+  .fc-theme-standard td,
+  .fc-theme-standard th {
+    border-color: #2a2a2a;
+  }
+
+  .fc-col-header-cell {
+    background: #252525;
+    color: white;
+    font-weight: 600;
+    padding: 12px 0;
+  }
+
+  .fc-daygrid-day {
+    color: white;
+  }
+
+  .fc-daygrid-day-number {
+    color: white;
+    padding: 8px;
+  }
+
+  .fc-day-today {
+    background-color: #2a2a2a !important;
+  }
+
+  .fc-button {
+    border: none !important;
+    color: black !important;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+
+  .fc-toolbar-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .fc-daygrid-day:hover {
+    background: #252525;
+    cursor: pointer;
+  }
+}
