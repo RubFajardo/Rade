@@ -13,7 +13,7 @@ export class Habits {
   @Input() isOpen = false;
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<HabitsModel>();
-
+  currentStep = 1;
 
   date: string = "";
   trained: boolean | null = null;
@@ -44,9 +44,22 @@ export class Habits {
   constructor(private habitsService: HabitsService) {
   }
 
+  nextStep() {
+    if (this.currentStep < 3) {
+      this.currentStep++;
+    }
+  }
+
+  previousStep() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+    }
+  }
+
   closeModal() {
     this.isOpen = false;
     this.close.emit();
+    this.currentStep = 1;
     this.resetForm();
   }
 

@@ -183,7 +183,7 @@
       </div>
 
       <!-- Calendar Section -->
-      <div class="mt-6 bg-[#1f1f1f] rounded-3xl p-8">
+      <div class=" bg-[#1f1f1f] rounded-3xl p-8">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-xl font-bold">Calendario de Entrenamiento</h3>
           <button
@@ -195,72 +195,73 @@
         </div>
 
         <full-calendar [options]="calendarOptions"></full-calendar>
-      </div>
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div *ngFor="let habit of filteredHabits"
+               class="bg-[#1f1f1f] rounded-3xl p-6 hover:bg-[#252525] transition-colors">
 
-      <!-- Habits Detail Section -->
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div *ngFor="let habit of filteredHabits"
-             class="bg-[#1f1f1f] rounded-3xl p-6 hover:bg-[#252525] transition-colors">
-
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h4 class="font-bold text-lg">{{ habit.date }}</h4>
-              <p class="text-sm text-gray-400">{{ habit.workout || 'Día de Descanso' }}</p>
-            </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold"
-                  [class.bg-amber-400]="habit.trained"
-                  [class.bg-red-400]="!habit.trained"
-                  [class.text-black]="habit.trained"
-                  [class.text-white]="!habit.trained">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h4 class="font-bold text-lg">{{ habit.date }}</h4>
+                <p class="text-sm text-gray-400">{{ habit.workout || 'Día de Descanso' }}</p>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold"
+                    [class.bg-amber-400]="habit.trained"
+                    [class.bg-red-400]="!habit.trained"
+                    [class.text-black]="habit.trained"
+                    [class.text-white]="!habit.trained">
             {{ habit.trained ? 'Entrenado' : 'Descanso' }}
           </span>
-          </div>
-
-          <div class="space-y-3 mb-4">
-            <div *ngIf="habit.extraTraining">
-              <span class="text-xs text-gray-400">Entrenamiento Extra:</span>
-              <p class="text-sm">{{ habit.extraTraining }}</p>
             </div>
 
-            <div>
-              <span class="text-xs text-gray-400">Sueño:</span>
-              <p class="text-sm capitalize">{{ habit.sleep }}</p>
+            <div class="space-y-3 mb-4">
+              <div *ngIf="habit.extraTraining">
+                <span class="text-xs text-gray-400">Entrenamiento Extra:</span>
+                <p class="text-sm">{{ habit.extraTraining }}</p>
+              </div>
+
+              <div>
+                <span class="text-xs text-gray-400">Sueño:</span>
+                <p class="text-sm capitalize">{{ habit.sleep }}</p>
+              </div>
+
+              <div>
+                <span class="text-xs text-gray-400">Descripción:</span>
+                <p class="text-sm">{{ habit.description }}</p>
+              </div>
             </div>
 
-            <div>
-              <span class="text-xs text-gray-400">Descripción:</span>
-              <p class="text-sm">{{ habit.description }}</p>
+            <div class="border-t border-gray-700 pt-4">
+              <div class="flex justify-between text-sm mb-2">
+                <span class="text-gray-400">Calorías:</span>
+                <span class="font-semibold">{{ habit.totalCalories }} kcal</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-400">Proteína:</span>
+                <span class="font-semibold">{{ habit.totalProtein }}g</span>
+              </div>
             </div>
-          </div>
 
-          <div class="border-t border-gray-700 pt-4">
-            <div class="flex justify-between text-sm mb-2">
-              <span class="text-gray-400">Calorías:</span>
-              <span class="font-semibold">{{ habit.totalCalories }} kcal</span>
-            </div>
-            <div class="flex justify-between text-sm">
-              <span class="text-gray-400">Proteína:</span>
-              <span class="font-semibold">{{ habit.totalProtein }}g</span>
-            </div>
-          </div>
-
-          <div class="mt-4">
-            <p class="text-xs text-gray-400 mb-2">Comidas:</p>
-            <div class="space-y-1">
-              <div *ngFor="let meal of habit.meals"
-                   class="text-xs bg-[#252525] p-2 rounded-lg">
-                <span class="capitalize font-semibold">{{ meal.type }}:</span>
-                <span class="text-gray-400"> {{ meal.food }}</span>
+            <div class="mt-4">
+              <p class="text-xs text-gray-400 mb-2">Comidas:</p>
+              <div class="space-y-1">
+                <div *ngFor="let meal of habit.meals"
+                     class="text-xs bg-[#252525] p-2 rounded-lg">
+                  <span class="capitalize font-semibold">{{ meal.type }}:</span>
+                  <span class="text-gray-400"> {{ meal.food }}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- Empty State -->
+        <div *ngIf="filteredHabits.length === 0"
+             class="mt-6 bg-[#1f1f1f] rounded-3xl p-12 text-center">
+          <p class="text-gray-400">No hay datos de entrenamiento para este período</p>
+        </div>
       </div>
 
-      <!-- Empty State -->
-      <div *ngIf="filteredHabits.length === 0"
-           class="mt-6 bg-[#1f1f1f] rounded-3xl p-12 text-center">
-        <p class="text-gray-400">No hay datos de entrenamiento para este período</p>
-      </div>
+
     </div>
   </div>
+</div>

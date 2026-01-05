@@ -4,179 +4,307 @@
     (click)="closeModal()"
   >
     <div
-      class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+      class="bg-[#1f1f1f] rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
       (click)="$event.stopPropagation()"
     >
-      <div class="sticky top-0 bg-white border-b px-6 py-4 flex justify-between items-center rounded-t-2xl">
-        <h2 class="text-2xl font-semibold text-gray-800">Registro de hábitos diarios</h2>
-        <button
-          (click)="closeModal()"
-          class="text-gray-400 hover:text-gray-600 text-2xl leading-none"
-        >
-          ×
-        </button>
-      </div>
-
-      <div class="p-6 space-y-6">
-        <div class="space-y-2">
-          <label class="block text-gray-700 font-medium">¿Entrenaste hoy?</label>
-          <div class="flex gap-4">
-            <button
-              type="button"
-              (click)="trained = true"
-              class="px-4 py-2 rounded-lg border w-full"
-              [class.bg-green-500]="trained"
-              [class.text-white]="trained"
-            >
-              Sí
-            </button>
-            <button
-              type="button"
-              (click)="trained = false"
-              class="px-4 py-2 rounded-lg border w-full"
-              [class.bg-red-500]="!trained"
-              [class.text-white]="!trained"
-            >
-              No
-            </button>
-          </div>
+      <!-- Header -->
+      <div class="sticky top-0 bg-[#1f1f1f] border-b border-gray-700 px-6 py-4 rounded-t-2xl">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-2xl font-semibold text-white">Registro de hábitos diarios</h2>
+          <button
+            (click)="closeModal()"
+            class="text-gray-400 hover:text-gray-200 text-2xl leading-none"
+          >
+            ×
+          </button>
         </div>
 
-        @if (trained) {
-          <div class="grid grid-cols-3 gap-4">
-            <!-- Cardio -->
-            <div
-              class="relative rounded-xl overflow-hidden cursor-pointer border-4 transition-all duration-200"
-              [class.border-blue-500]="selectedWorkout === 'cardio'"
-              [class.opacity-70]="selectedWorkout !== 'cardio'"
-              (click)="selectedWorkout = 'cardio'"
-            >
-              <img
-                src="https://tophealth.es/wp-content/uploads/2023/08/22.jpg"
-                alt="Cardio"
-                class="w-full h-40 object-cover"
-              />
-              <div class="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition">
-                <span class="text-white text-xl font-semibold">Cardio</span>
+        <!-- Progress indicator -->
+        <div class="flex items-center gap-2">
+          <div class="flex-1 h-1 rounded-full" [class.bg-amber-400]="currentStep >= 1"
+               [class.bg-gray-700]="currentStep < 1"></div>
+          <div class="flex-1 h-1 rounded-full" [class.bg-amber-400]="currentStep >= 2"
+               [class.bg-gray-700]="currentStep < 2"></div>
+          <div class="flex-1 h-1 rounded-full" [class.bg-amber-400]="currentStep >= 3"
+               [class.bg-gray-700]="currentStep < 3"></div>
+        </div>
+        <p class="text-gray-400 text-sm mt-2">Paso {{ currentStep }} de 3</p>
+      </div>
+
+      <div class="p-6">
+        <!-- PASO 1: Entrenamiento y Sueño -->
+        @if (currentStep === 1) {
+          <div class="space-y-6">
+            <div class="space-y-2">
+              <label class="block text-gray-200 font-medium">¿Entrenaste hoy?</label>
+              <div class="flex gap-4">
+                <button
+                  type="button"
+                  (click)="trained = true"
+                  class="px-4 py-2 rounded-lg border border-gray-600 w-full transition"
+                  [class.bg-green-500]="trained"
+                  [class.text-white]="trained"
+                  [class.text-gray-300]="!trained"
+                  [class.hover:bg-gray-800]="!trained"
+                >
+                  Sí
+                </button>
+                <button
+                  type="button"
+                  (click)="trained = false"
+                  class="px-4 py-2 rounded-lg border border-gray-600 w-full transition"
+                  [class.bg-red-500]="trained === false"
+                  [class.text-white]="trained === false"
+                  [class.text-gray-300]="trained !== false"
+                  [class.hover:bg-gray-800]="trained !== false"
+                >
+                  No
+                </button>
               </div>
             </div>
 
-            <!-- Tren superior -->
-            <div
-              class="relative rounded-xl overflow-hidden cursor-pointer border-4 transition-all duration-200"
-              [class.border-blue-500]="selectedWorkout === 'superior'"
-              [class.opacity-70]="selectedWorkout !== 'superior'"
-              (click)="selectedWorkout = 'superior'"
-            >
-              <img
-                src="https://mui.fitness/__export/1672418748915/sites/muifitness/img/2022/12/30/musculos-tren-superior.png_249033212.png"
-                alt="Tren superior"
-                class="w-full h-40 object-cover"
-              />
-              <div class="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition">
-                <span class="text-white text-xl font-semibold text-center">Tren superior</span>
-              </div>
-            </div>
+            @if (trained) {
+              <div class="grid grid-cols-3 gap-4">
+                <!-- Cardio -->
+                <div
+                  class="relative rounded-xl overflow-hidden cursor-pointer border-4 transition-all duration-200"
+                  [class.border-amber-400]="selectedWorkout === 'cardio'"
+                  [class.border-gray-700]="selectedWorkout !== 'cardio'"
+                  [class.opacity-70]="selectedWorkout !== 'cardio' && selectedWorkout !== null"
+                  (click)="selectedWorkout = 'cardio'"
+                >
+                  <img
+                    src="https://tophealth.es/wp-content/uploads/2023/08/22.jpg"
+                    alt="Cardio"
+                    class="w-full h-40 object-cover"
+                  />
+                  <div
+                    class="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition">
+                    <span class="text-white text-xl font-semibold">Cardio</span>
+                  </div>
+                </div>
 
-            <!-- Tren inferior -->
-            <div
-              class="relative rounded-xl overflow-hidden cursor-pointer border-4 transition-all duration-200"
-              [class.border-blue-500]="selectedWorkout === 'inferior'"
-              [class.opacity-70]="selectedWorkout !== 'inferior'"
-              (click)="selectedWorkout = 'inferior'"
-            >
-              <img
-                src="https://img.freepik.com/fotos-premium/hombre-entrenamiento-gimnasio-prensa-piernas_79405-5885.jpg"
-                alt="Tren inferior"
-                class="w-full h-40 object-cover"
-              />
-              <div class="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition">
-                <span class="text-white text-xl font-semibold text-center">Tren inferior</span>
-              </div>
-            </div>
-          </div>
+                <!-- Tren superior -->
+                <div
+                  class="relative rounded-xl overflow-hidden cursor-pointer border-4 transition-all duration-200"
+                  [class.border-amber-400]="selectedWorkout === 'superior'"
+                  [class.border-gray-700]="selectedWorkout !== 'superior'"
+                  [class.opacity-70]="selectedWorkout !== 'superior' && selectedWorkout !== null"
+                  (click)="selectedWorkout = 'superior'"
+                >
+                  <img
+                    src="https://mui.fitness/__export/1672418748915/sites/muifitness/img/2022/12/30/musculos-tren-superior.png_249033212.png"
+                    alt="Tren superior"
+                    class="w-full h-40 object-cover"
+                  />
+                  <div
+                    class="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition">
+                    <span class="text-white text-xl font-semibold text-center">Tren superior</span>
+                  </div>
+                </div>
 
-          <div class="space-y-2">
-            <label class="block text-gray-700 font-medium">¿Entrenaste algo adicional?</label>
-            <input
-              type="text"
-              [(ngModel)]="extraTraining"
-              placeholder="Ej. abdominales, movilidad..."
-              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
+                <!-- Tren inferior -->
+                <div
+                  class="relative rounded-xl overflow-hidden cursor-pointer border-4 transition-all duration-200"
+                  [class.border-amber-400]="selectedWorkout === 'inferior'"
+                  [class.border-gray-700]="selectedWorkout !== 'inferior'"
+                  [class.opacity-70]="selectedWorkout !== 'inferior' && selectedWorkout !== null"
+                  (click)="selectedWorkout = 'inferior'"
+                >
+                  <img
+                    src="https://img.freepik.com/fotos-premium/hombre-entrenamiento-gimnasio-prensa-piernas_79405-5885.jpg"
+                    alt="Tren inferior"
+                    class="w-full h-40 object-cover"
+                  />
+                  <div
+                    class="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition">
+                    <span class="text-white text-xl font-semibold text-center">Tren inferior</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <label class="block text-gray-200 font-medium">¿Entrenaste algo adicional?</label>
+                <input
+                  type="text"
+                  [(ngModel)]="extraTraining"
+                  placeholder="Ej. abdominales, movilidad..."
+                  class="w-full px-4 py-2 bg-[#2a2a2a] border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 placeholder-gray-400"
+                />
+              </div>
+            }
+
+            <div class="space-y-2">
+              <label class="block text-gray-200 font-medium">¿Dormiste bien?</label>
+              <select
+                [(ngModel)]="sleepQuality"
+                class="w-full bg-[#2a2a2a] border border-gray-600 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400"
+              >
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="bien">Bien</option>
+                <option value="mal">Mal</option>
+              </select>
+            </div>
           </div>
         }
 
-        <div class="space-y-2">
-          <label class="block text-gray-700 font-medium">¿Dormiste bien?</label>
-          <select
-            [(ngModel)]="sleepQuality"
-            class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            <option value="" disabled selected>Selecciona una opción</option>
-            <option value="bien">Bien</option>
-            <option value="mal">Mal</option>
-          </select>
-        </div>
+        <!-- PASO 2: Comidas -->
+        @if (currentStep === 2) {
+          <div class="space-y-6">
+            @for (meal of meals; track meal.type) {
+              <div class="border border-gray-700 p-4 rounded-xl bg-[#2a2a2a]">
+                <label class="block text-gray-200 font-semibold capitalize mb-2">
+                  {{ meal.type }}
+                </label>
 
-        <div class="space-y-6">
-          @for (meal of meals; track meal.type) {
-            <div class="border p-4 rounded-xl bg-gray-50">
-              <label class="block text-gray-700 font-semibold capitalize mb-2">
-                {{ meal.type }}
-              </label>
+                <input
+                  type="text"
+                  [(ngModel)]="meal.food"
+                  placeholder="¿Qué comiste?"
+                  class="w-full mb-3 px-4 py-2 bg-[#1f1f1f] border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 placeholder-gray-400"
+                />
 
-              <input
-                type="text"
-                [(ngModel)]="meal.food"
-                placeholder="¿Qué comiste?"
-                class="w-full mb-3 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-gray-600 text-sm mb-1">Calorías</label>
-                  <input
-                    type="number"
-                    [(ngModel)]="meal.calories"
-                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    placeholder="kcal"
-                  />
-                </div>
-                <div>
-                  <label class="block text-gray-600 text-sm mb-1">Proteínas (g)</label>
-                  <input
-                    type="number"
-                    [(ngModel)]="meal.protein"
-                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    placeholder="g"
-                  />
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-gray-400 text-sm mb-1">Calorías</label>
+                    <input
+                      type="number"
+                      [(ngModel)]="meal.calories"
+                      class="w-full px-3 py-2 bg-[#1f1f1f] border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 placeholder-gray-400"
+                      placeholder="kcal"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-gray-400 text-sm mb-1">Proteínas (g)</label>
+                    <input
+                      type="number"
+                      [(ngModel)]="meal.protein"
+                      class="w-full px-3 py-2 bg-[#1f1f1f] border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 placeholder-gray-400"
+                      placeholder="g"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          }
-        </div>
+            }
+          </div>
+        }
 
-        <div class="mt-4 text-gray-700 bg-blue-50 p-4 rounded-lg">
-          <p><strong>Total Calorías:</strong> {{ totalCalories }} kcal</p>
-          <p><strong>Total Proteínas:</strong> {{ totalProteins }} g</p>
-        </div>
+        <!-- PASO 3: Resumen -->
+        @if (currentStep === 3) {
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-amber-400 mb-4">Resumen de tu día</h3>
+
+            <!-- Entrenamiento -->
+            <div class="bg-[#2a2a2a] border border-gray-700 rounded-xl p-5">
+              <h4 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                <span class="text-2xl text-amber-400">·</span> Entrenamiento
+              </h4>
+              <div class="space-y-2 text-gray-300">
+                <p><strong class="text-gray-200">¿Entrenaste?:</strong> {{ trained ? 'Sí' : 'No' }}</p>
+                @if (trained && selectedWorkout) {
+                  <p><strong class="text-gray-200">Tipo:</strong>
+                    @if (selectedWorkout === 'cardio') {
+                      Cardio
+                    }
+                    @if (selectedWorkout === 'superior') {
+                      Tren superior
+                    }
+                    @if (selectedWorkout === 'inferior') {
+                      Tren inferior
+                    }
+                  </p>
+                }
+                @if (trained && extraTraining) {
+                  <p><strong class="text-gray-200">Adicional:</strong> {{ extraTraining }}</p>
+                }
+              </div>
+            </div>
+
+            <!-- Sueño -->
+            <div class="bg-[#2a2a2a] border border-gray-700 rounded-xl p-5">
+              <h4 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                <span class="text-2xl text-amber-400">·</span> Descanso
+              </h4>
+              <p class="text-gray-300">
+                <strong class="text-gray-200">Calidad del sueño:</strong> {{ sleepQuality || 'No especificado' }}
+              </p>
+            </div>
+
+            <!-- Nutrición -->
+            <div class="bg-[#2a2a2a] border border-amber-400/30 rounded-xl p-5">
+              <h4 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                <span class="text-2xl text-amber-400">·</span> Nutrición
+              </h4>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="bg-[#1f1f1f] rounded-lg p-4 border border-gray-700">
+                  <p class="text-gray-400 text-sm">Total Calorías</p>
+                  <p class="text-3xl font-bold text-amber-400">{{ totalCalories }}</p>
+                  <p class="text-gray-500 text-xs">kcal</p>
+                </div>
+                <div class="bg-[#1f1f1f] rounded-lg p-4 border border-gray-700">
+                  <p class="text-gray-400 text-sm">Total Proteínas</p>
+                  <p class="text-3xl font-bold text-amber-400">{{ totalProteins }}</p>
+                  <p class="text-gray-500 text-xs">gramos</p>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                @for (meal of meals; track meal.type) {
+                  @if (meal.food || meal.calories || meal.protein) {
+                    <div class="flex justify-between items-center text-sm border-t border-gray-700 pt-2">
+                      <span class="text-gray-300 capitalize">{{ meal.type }}:</span>
+                      <span class="text-gray-400">
+                        {{ meal.food || 'Sin registrar' }}
+                        @if (meal.calories || meal.protein) {
+                          <span class="text-amber-400 ml-2">
+                            ({{ meal.calories || 0 }} kcal, {{ meal.protein || 0 }}g proteína)
+                          </span>
+                        }
+                      </span>
+                    </div>
+                  }
+                }
+              </div>
+            </div>
+          </div>
+        }
       </div>
 
-      <!-- Footer -->
-      <div class="sticky bottom-0 bg-white border-t px-6 py-4 flex gap-3 justify-end rounded-b-2xl">
+      <!-- Footer con navegación -->
+      <div
+        class="sticky bottom-0 bg-[#1f1f1f] border-t border-gray-700 px-6 py-4 flex gap-3 justify-between rounded-b-2xl">
         <button
-          (click)="closeModal()"
-          class="px-6 py-2 rounded-xl border border-gray-300 hover:bg-gray-50 transition"
+          *ngIf="currentStep > 1"
+          (click)="previousStep()"
+          class="px-6 py-2 rounded-xl border border-gray-600 hover:bg-[#2a2a2a] text-gray-200 transition"
         >
-          Cancelar
+          ← Atrás
         </button>
-        <button
-          (click)="onSubmit()"
-          class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl transition"
-        >
-          Guardar hábitos
-        </button>
+
+        <div class="ml-auto flex gap-3">
+          <button
+            (click)="closeModal()"
+            class="px-6 py-2 rounded-xl border border-gray-600 hover:bg-[#2a2a2a] text-gray-200 transition"
+          >
+            Cancelar
+          </button>
+
+          @if (currentStep < 3) {
+            <button
+              (click)="nextStep()"
+              class="bg-amber-400 hover:bg-amber-500 text-black px-6 py-2 rounded-xl transition font-medium"
+            >
+              Siguiente →
+            </button>
+          } @else {
+            <button
+              (click)="onSubmit()"
+              class="bg-amber-400 hover:bg-amber-500 text-black px-6 py-2 rounded-xl transition font-medium"
+            >
+              Guardar hábitos
+            </button>
+          }
+        </div>
       </div>
     </div>
   </div>
