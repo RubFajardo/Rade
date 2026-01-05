@@ -27,6 +27,8 @@ Este proyecto está dividido en dos partes principales:
 | **Gradle** | Herramienta de gestión de dependencias y construcción de proyectos. |
 | **PostgreSQL** | Base de datos relacional para almacenamiento de datos de hábitos y usuarios. |
 
+Encuentra el repositorio del back-end [aquí](https://github.com/RubFajardo/RadeAPI).
+
 ## ⚙️ Configuración y Ejecución Local
 
 Sigue estos pasos para poner en marcha el proyecto en tu entorno de desarrollo.
