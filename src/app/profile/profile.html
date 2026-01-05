@@ -13,240 +13,254 @@
             class="w-full h-full object-cover"
           >
         </div>
+        <div class="p-8">
+          <button
+            (click)="isModalOpen = true"
+            class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-xl"
+          >
+            Registrar hábitos
+          </button>
+
+          <app-habits
+            [isOpen]="isModalOpen"
+            (close)="isModalOpen = false"
+            (save)="handleSave($event)"
+          />
+        </div>
+
+        <!-- Right Side - Info Cards -->
+        <div class="space-y-6">
+
+          <!-- Quote Card -->
+
+
+          <!-- User Info Card -->
+          <div class="bg-[#1f1f1f] rounded-3xl p-8">
+            <div class="flex items-center gap-4 mb-6">
+              <div>
+                <h2 class="text-3xl font-bold">Sophia</h2>
+                <p class="text-gray-400 mt-2">Entusiasta del Fitness y Blogger</p>
+              </div>
+            </div>
+
+            <div class="space-y-2 ">
+              <div class="flex items-center">
+                <span class="text-gray-400 w-24">Edad:</span>
+                <span class="text-white">28</span>
+              </div>
+              <div class="flex items-center">
+                <span class="text-gray-400 w-24">Ubicación:</span>
+                <span class="text-white">Austin, Texas</span>
+              </div>
+              <div class="flex items-center">
+                <span class="text-gray-400 w-24">País:</span>
+                <span class="text-white">USA</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#1f1f1f] rounded-3xl p-8">
+            <p class="text-gray-300 text-lg">
+              <span class="text-3xl text-amber-400">"</span>
+              lorem lorem loremlorem lorem lorem lorem loremloremlorem lorem lorem lorem loremloremlorem lorem lorem.
+              <span class="text-3xl text-amber-400">"</span>
+
+            </p>
+
+          </div>
+
+          <!-- User Needs Card -->
+          <div class="bg-[#1f1f1f] rounded-3xl p-8">
+            <h3 class="text-xl font-bold mb-6">Necesidades del Usuario</h3>
+
+            <div class="flex items-center gap-8">
+              <!-- Donut Chart -->
+              <div class="relative w-48 h-48">
+                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                  <!-- Background circle -->
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="35"
+                    fill="none"
+                    stroke="#2a2a2a"
+                    stroke-width="20"
+                  />
+
+                  <!-- Personalization: 40% (144 degrees) -->
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="35"
+                    fill="none"
+                    stroke="#fbbf24"
+                    stroke-width="20"
+                    stroke-dasharray="88 220"
+                    stroke-dashoffset="0"
+                    stroke-linecap="round"
+                  />
+
+                  <!-- Quality Materials: 30% (108 degrees) -->
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="35"
+                    fill="none"
+                    stroke="#f59e0b"
+                    stroke-width="20"
+                    stroke-dasharray="66 220"
+                    stroke-dashoffset="-88"
+                    stroke-linecap="round"
+                  />
+
+                  <!-- Easy Interface: 30% (108 degrees) -->
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="35"
+                    fill="none"
+                    stroke="#d97706"
+                    stroke-width="20"
+                    stroke-dasharray="66 220"
+                    stroke-dashoffset="-154"
+                    stroke-linecap="round"
+                  />
+                </svg>
+
+                <!-- Percentage Labels -->
+                <div class="absolute top-4 right-2 bg-white text-black px-2 py-1 rounded-full text-xs font-bold">
+                  30%
+                </div>
+                <div class="absolute bottom-4 right-2 bg-white text-black px-2 py-1 rounded-full text-xs font-bold">
+                  30%
+                </div>
+                <div
+                  class="absolute left-2 top-1/2 -translate-y-1/2 bg-white text-black px-2 py-1 rounded-full text-xs font-bold">
+                  40%
+                </div>
+              </div>
+
+              <!-- Legend -->
+              <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-3 h-3 rounded-full bg-[#fbbf24]"></div>
+                  <span class="text-sm">Personalización: 40%</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-3 h-3 rounded-full bg-[#f59e0b]"></div>
+                  <span class="text-sm">Materiales de Calidad: 30%</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-3 h-3 rounded-full bg-[#d97706]"></div>
+                  <span class="text-sm">Interfaz Fácil: 30%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Goals Card -->
+          <div class="bg-[#1f1f1f] rounded-3xl p-8">
+            <h3 class="text-xl font-bold mb-6">Objetivos del Usuario</h3>
+
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="text-amber-400 mt-1">•</span>
+                <span
+                  class="text-gray-300">Sincronización en tiempo real sin esfuerzo entre smartwatch y dispositivos.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-amber-400 mt-1">•</span>
+                <span class="text-gray-300">Información completa sobre métricas de fitness y salud.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-amber-400 mt-1">•</span>
+                <span
+                  class="text-gray-300">Panel intuitivo con widgets personalizables para un mejor seguimiento.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
 
-      <!-- Right Side - Info Cards -->
-      <div class="space-y-6">
+      <!-- Calendar Section -->
+      <div class="mt-6 bg-[#1f1f1f] rounded-3xl p-8">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl font-bold">Calendario de Entrenamiento</h3>
+          <button
+            *ngIf="selectedDate"
+            (click)="resetCalendar()"
+            class="px-4 py-2 bg-amber-400 text-black rounded-lg hover:bg-amber-500 transition-colors font-semibold text-sm">
+            Restablecer Calendario
+          </button>
+        </div>
 
-        <!-- Quote Card -->
+        <full-calendar [options]="calendarOptions"></full-calendar>
+      </div>
 
+      <!-- Habits Detail Section -->
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div *ngFor="let habit of filteredHabits"
+             class="bg-[#1f1f1f] rounded-3xl p-6 hover:bg-[#252525] transition-colors">
 
-        <!-- User Info Card -->
-        <div class="bg-[#1f1f1f] rounded-3xl p-8">
-          <div class="flex items-center gap-4 mb-6">
+          <div class="flex justify-between items-start mb-4">
             <div>
-              <h2 class="text-3xl font-bold">Sophia</h2>
-              <p class="text-gray-400 mt-2">Entusiasta del Fitness y Blogger</p>
+              <h4 class="font-bold text-lg">{{ habit.date }}</h4>
+              <p class="text-sm text-gray-400">{{ habit.workout || 'Día de Descanso' }}</p>
             </div>
-          </div>
-
-          <div class="space-y-2 ">
-            <div class="flex items-center">
-              <span class="text-gray-400 w-24">Edad:</span>
-              <span class="text-white">28</span>
-            </div>
-            <div class="flex items-center">
-              <span class="text-gray-400 w-24">Ubicación:</span>
-              <span class="text-white">Austin, Texas</span>
-            </div>
-            <div class="flex items-center">
-              <span class="text-gray-400 w-24">País:</span>
-              <span class="text-white">USA</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-[#1f1f1f] rounded-3xl p-8">
-          <p class="text-gray-300 text-lg">
-            <span class="text-3xl text-amber-400">"</span>
-            lorem lorem loremlorem lorem lorem lorem loremloremlorem lorem lorem lorem loremloremlorem lorem lorem.
-            <span class="text-3xl text-amber-400">"</span>
-
-          </p>
-
-        </div>
-
-        <!-- User Needs Card -->
-        <div class="bg-[#1f1f1f] rounded-3xl p-8">
-          <h3 class="text-xl font-bold mb-6">Necesidades del Usuario</h3>
-
-          <div class="flex items-center gap-8">
-            <!-- Donut Chart -->
-            <div class="relative w-48 h-48">
-              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                <!-- Background circle -->
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="35"
-                  fill="none"
-                  stroke="#2a2a2a"
-                  stroke-width="20"
-                />
-
-                <!-- Personalization: 40% (144 degrees) -->
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="35"
-                  fill="none"
-                  stroke="#fbbf24"
-                  stroke-width="20"
-                  stroke-dasharray="88 220"
-                  stroke-dashoffset="0"
-                  stroke-linecap="round"
-                />
-
-                <!-- Quality Materials: 30% (108 degrees) -->
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="35"
-                  fill="none"
-                  stroke="#f59e0b"
-                  stroke-width="20"
-                  stroke-dasharray="66 220"
-                  stroke-dashoffset="-88"
-                  stroke-linecap="round"
-                />
-
-                <!-- Easy Interface: 30% (108 degrees) -->
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="35"
-                  fill="none"
-                  stroke="#d97706"
-                  stroke-width="20"
-                  stroke-dasharray="66 220"
-                  stroke-dashoffset="-154"
-                  stroke-linecap="round"
-                />
-              </svg>
-
-              <!-- Percentage Labels -->
-              <div class="absolute top-4 right-2 bg-white text-black px-2 py-1 rounded-full text-xs font-bold">
-                30%
-              </div>
-              <div class="absolute bottom-4 right-2 bg-white text-black px-2 py-1 rounded-full text-xs font-bold">
-                30%
-              </div>
-              <div
-                class="absolute left-2 top-1/2 -translate-y-1/2 bg-white text-black px-2 py-1 rounded-full text-xs font-bold">
-                40%
-              </div>
-            </div>
-
-            <!-- Legend -->
-            <div class="space-y-4">
-              <div class="flex items-center gap-3">
-                <div class="w-3 h-3 rounded-full bg-[#fbbf24]"></div>
-                <span class="text-sm">Personalización: 40%</span>
-              </div>
-              <div class="flex items-center gap-3">
-                <div class="w-3 h-3 rounded-full bg-[#f59e0b]"></div>
-                <span class="text-sm">Materiales de Calidad: 30%</span>
-              </div>
-              <div class="flex items-center gap-3">
-                <div class="w-3 h-3 rounded-full bg-[#d97706]"></div>
-                <span class="text-sm">Interfaz Fácil: 30%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- User Goals Card -->
-        <div class="bg-[#1f1f1f] rounded-3xl p-8">
-          <h3 class="text-xl font-bold mb-6">Objetivos del Usuario</h3>
-
-          <ul class="space-y-3">
-            <li class="flex items-start gap-3">
-              <span class="text-amber-400 mt-1">•</span>
-              <span
-                class="text-gray-300">Sincronización en tiempo real sin esfuerzo entre smartwatch y dispositivos.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-amber-400 mt-1">•</span>
-              <span class="text-gray-300">Información completa sobre métricas de fitness y salud.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-amber-400 mt-1">•</span>
-              <span class="text-gray-300">Panel intuitivo con widgets personalizables para un mejor seguimiento.</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Calendar Section -->
-    <div class="mt-6 bg-[#1f1f1f] rounded-3xl p-8">
-      <div class="flex justify-between items-center mb-6">
-        <h3 class="text-xl font-bold">Calendario de Entrenamiento</h3>
-        <button
-          *ngIf="selectedDate"
-          (click)="resetCalendar()"
-          class="px-4 py-2 bg-amber-400 text-black rounded-lg hover:bg-amber-500 transition-colors font-semibold text-sm">
-          Restablecer Calendario
-        </button>
-      </div>
-
-      <full-calendar [options]="calendarOptions"></full-calendar>
-    </div>
-
-    <!-- Habits Detail Section -->
-    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let habit of filteredHabits"
-           class="bg-[#1f1f1f] rounded-3xl p-6 hover:bg-[#252525] transition-colors">
-
-        <div class="flex justify-between items-start mb-4">
-          <div>
-            <h4 class="font-bold text-lg">{{ habit.date }}</h4>
-            <p class="text-sm text-gray-400">{{ habit.workout || 'Día de Descanso' }}</p>
-          </div>
-          <span class="px-3 py-1 rounded-full text-xs font-semibold"
-                [class.bg-amber-400]="habit.trained"
-                [class.bg-red-400]="!habit.trained"
-                [class.text-black]="habit.trained"
-                [class.text-white]="!habit.trained">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold"
+                  [class.bg-amber-400]="habit.trained"
+                  [class.bg-red-400]="!habit.trained"
+                  [class.text-black]="habit.trained"
+                  [class.text-white]="!habit.trained">
             {{ habit.trained ? 'Entrenado' : 'Descanso' }}
           </span>
-        </div>
-
-        <div class="space-y-3 mb-4">
-          <div *ngIf="habit.extraTraining">
-            <span class="text-xs text-gray-400">Entrenamiento Extra:</span>
-            <p class="text-sm">{{ habit.extraTraining }}</p>
           </div>
 
-          <div>
-            <span class="text-xs text-gray-400">Sueño:</span>
-            <p class="text-sm capitalize">{{ habit.sleep }}</p>
+          <div class="space-y-3 mb-4">
+            <div *ngIf="habit.extraTraining">
+              <span class="text-xs text-gray-400">Entrenamiento Extra:</span>
+              <p class="text-sm">{{ habit.extraTraining }}</p>
+            </div>
+
+            <div>
+              <span class="text-xs text-gray-400">Sueño:</span>
+              <p class="text-sm capitalize">{{ habit.sleep }}</p>
+            </div>
+
+            <div>
+              <span class="text-xs text-gray-400">Descripción:</span>
+              <p class="text-sm">{{ habit.description }}</p>
+            </div>
           </div>
 
-          <div>
-            <span class="text-xs text-gray-400">Descripción:</span>
-            <p class="text-sm">{{ habit.description }}</p>
+          <div class="border-t border-gray-700 pt-4">
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-gray-400">Calorías:</span>
+              <span class="font-semibold">{{ habit.totalCalories }} kcal</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-400">Proteína:</span>
+              <span class="font-semibold">{{ habit.totalProtein }}g</span>
+            </div>
           </div>
-        </div>
 
-        <div class="border-t border-gray-700 pt-4">
-          <div class="flex justify-between text-sm mb-2">
-            <span class="text-gray-400">Calorías:</span>
-            <span class="font-semibold">{{ habit.totalCalories }} kcal</span>
-          </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-gray-400">Proteína:</span>
-            <span class="font-semibold">{{ habit.totalProtein }}g</span>
-          </div>
-        </div>
-
-        <div class="mt-4">
-          <p class="text-xs text-gray-400 mb-2">Comidas:</p>
-          <div class="space-y-1">
-            <div *ngFor="let meal of habit.meals"
-                 class="text-xs bg-[#252525] p-2 rounded-lg">
-              <span class="capitalize font-semibold">{{ meal.type }}:</span>
-              <span class="text-gray-400"> {{ meal.food }}</span>
+          <div class="mt-4">
+            <p class="text-xs text-gray-400 mb-2">Comidas:</p>
+            <div class="space-y-1">
+              <div *ngFor="let meal of habit.meals"
+                   class="text-xs bg-[#252525] p-2 rounded-lg">
+                <span class="capitalize font-semibold">{{ meal.type }}:</span>
+                <span class="text-gray-400"> {{ meal.food }}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Empty State -->
-    <div *ngIf="filteredHabits.length === 0"
-         class="mt-6 bg-[#1f1f1f] rounded-3xl p-12 text-center">
-      <p class="text-gray-400">No hay datos de entrenamiento para este período</p>
+      <!-- Empty State -->
+      <div *ngIf="filteredHabits.length === 0"
+           class="mt-6 bg-[#1f1f1f] rounded-3xl p-12 text-center">
+        <p class="text-gray-400">No hay datos de entrenamiento para este período</p>
+      </div>
     </div>
   </div>
-</div>

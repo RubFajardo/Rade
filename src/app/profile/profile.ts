@@ -10,15 +10,17 @@ import {User} from '../login/login.service';
 import {HttpClient} from '@angular/common/http';
 import {Store} from '@ngrx/store';
 import {selectUser} from '../state/user.selectors';
+import {Habits} from '../habits/habits';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FullCalendarModule],
+  imports: [CommonModule, FullCalendarModule, Habits],
   standalone: true,
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
 export class Profile {
+  isModalOpen = false;
 
   habitsData: HabitsModel[] = [
     {
@@ -117,6 +119,10 @@ export class Profile {
   currentYear: number = new Date().getFullYear();
   selectedDate: string | null = null;
   user$!: Observable<User | null>;
+
+  handleSave(data: HabitsModel) {
+    console.log('Datos guardados:', data);
+  }
 
   onMonthChange(date: Date) {
     this.currentMonth = date.getMonth() + 1;
