@@ -17,6 +17,7 @@ export class Login {
   isLoginMode = true;
   showPassword = false;
   user$!: Observable<User | null>;
+  successRegister: boolean = false;
 
   toggleMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -30,6 +31,10 @@ export class Login {
               private store: Store) {
   }
 
+  loginWithGoogle() {
+    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+  }
+
 
   onSubmit(form: any) {
     const user: User = form.value;
@@ -39,7 +44,7 @@ export class Login {
 
       this.userService.login(user).subscribe({
         next: (res) => {
-          const user: User = res
+          const user: User = res.user
           this.store.dispatch(loginUser({user}));
           console.log('✅ Login correcto:', res);
         },
@@ -54,6 +59,8 @@ export class Login {
       this.userService.register(user).subscribe({
         next: (res) => {
           console.log('✅ Registro correcto:', res);
+          this.successRegister = true;
+          this.isLoginMode = true;
         },
         error: (err) => {
           console.error('❌ Error en registro:', err);

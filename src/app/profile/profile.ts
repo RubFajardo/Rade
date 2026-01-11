@@ -26,12 +26,12 @@ export class Profile {
     {
       date: "2025-10-30",
       trained: true,
-      workout: "Pesas",
+      selectedWorkout: "Pesas",
       extraTraining: "Cardio 20 min",
-      sleep: "bien",
+      sleepQuality: "bien",
       description: "Buen entrenamiento de fuerza con enfoque en pecho y hombros.",
       totalCalories: 2500,
-      totalProtein: 180,
+      totalProteins: 180,
       meals: [
         { type: "desayuno", food: "Huevos y pan", calories: "500", protein: "40" },
         { type: "almuerzo", food: "Pollo con arroz", calories: "800", protein: "60" },
@@ -41,78 +41,18 @@ export class Profile {
     {
       date: "2025-10-31",
       trained: false,
-      workout: "",
+      selectedWorkout: "",
       extraTraining: "",
-      sleep: "mal",
+      sleepQuality: "mal",
       description: "Día de descanso, dormí poco y comí algo desordenado.",
       totalCalories: 2200,
-      totalProtein: 120,
+      totalProteins: 120,
       meals: [
         { type: "desayuno", food: "Tostadas con mermelada", calories: "400", protein: "10" },
         { type: "almuerzo", food: "Pasta con carne", calories: "900", protein: "50" },
         { type: "cena", food: "Ensalada y yogurt", calories: "500", protein: "20" }
       ]
     },
-    {
-      date: "2025-11-01",
-      trained: true,
-      workout: "Tren inferior",
-      extraTraining: "Caminata ligera 30 min",
-      sleep: "bien",
-      description: "Piernas intensas, buena recuperación posterior.",
-      totalCalories: 2700,
-      totalProtein: 190,
-      meals: [
-        { type: "desayuno", food: "Avena con leche y plátano", calories: "600", protein: "35" },
-        { type: "almuerzo", food: "Carne magra con patatas", calories: "900", protein: "70" },
-        { type: "cena", food: "Tortilla con ensalada", calories: "700", protein: "50" }
-      ]
-    },
-    {
-      date: "2025-11-02",
-      trained: true,
-      workout: "Cardio",
-      extraTraining: "Abdominales 15 min",
-      sleep: "bien",
-      description: "Sesión de cardio suave con core.",
-      totalCalories: 2400,
-      totalProtein: 160,
-      meals: [
-        { type: "desayuno", food: "Smoothie de proteínas", calories: "450", protein: "40" },
-        { type: "almuerzo", food: "Salmón con arroz integral", calories: "850", protein: "65" },
-        { type: "cena", food: "Pollo y brócoli", calories: "600", protein: "55" }
-      ]
-    },
-    {
-      date: "2025-11-03",
-      trained: false,
-      workout: "",
-      extraTraining: "",
-      sleep: "mal",
-      description: "Día de descanso total, algo cansado.",
-      totalCalories: 2100,
-      totalProtein: 110,
-      meals: [
-        { type: "desayuno", food: "Cereal con leche", calories: "400", protein: "20" },
-        { type: "almuerzo", food: "Hamburguesa casera", calories: "900", protein: "60" },
-        { type: "cena", food: "Sopa y pan", calories: "500", protein: "30" }
-      ]
-    },
-    {
-      date: "2025-11-04",
-      trained: true,
-      workout: "Tren superior",
-      extraTraining: "Cardio suave 15 min",
-      sleep: "bien",
-      description: "Excelente sesión de espalda y bíceps, mucha energía.",
-      totalCalories: 2800,
-      totalProtein: 200,
-      meals: [
-        { type: "desayuno", food: "Tortilla con avena", calories: "600", protein: "45" },
-        { type: "almuerzo", food: "Pollo al horno con quinoa", calories: "950", protein: "80" },
-        { type: "cena", food: "Atún con verduras", calories: "700", protein: "60" }
-      ]
-    }
   ];
 
   currentMonth: number = new Date().getMonth() + 1;

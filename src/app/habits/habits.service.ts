@@ -9,11 +9,11 @@ import {User} from '../login/login.service';
 export interface HabitsModel {
   date: string;
   trained: boolean | null;
-  workout: string | null;
+  selectedWorkout: string | null;
   extraTraining: string;
-  sleep: string;
+  sleepQuality: string;
   totalCalories: number;
-  totalProtein: number;
+  totalProteins: number;
   meals: {
     type: string;
     food: string;
