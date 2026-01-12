@@ -4,8 +4,8 @@ import {FormsModule} from '@angular/forms';
 import {User, UserService} from './login.service';
 import {Store} from '@ngrx/store';
 import {loginUser} from '../state/user.actions';
-import {Observable} from 'rxjs';
 import {RouterLink} from '@angular/router';
+import {UsersModel} from '../models/user.models';
 
 @Component({
   selector: 'app-login',
@@ -23,9 +23,6 @@ export class Login {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  get isDesktop(): boolean {
-    return window.innerWidth >= 768; // md breakpoint
-  }
 
   constructor(private userService: UserService,
               private store: Store) {

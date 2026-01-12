@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 export interface User {
   id: number;
@@ -9,11 +9,12 @@ export interface User {
   password: string;
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class UserService {
   private apiUrl = 'https://habitstracker-api-8g6h.onrender.com/api/auth';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   login(user: User): Observable<any> {
     const body = { password: user.password, email: user.email };
@@ -21,7 +22,7 @@ export class UserService {
   }
 
   register(user: User): Observable<any> {
-    const body = { name: user.name, password: user.password, email: user.email };
+    const body = {name: user.name, password: user.password, email: user.email};
     return this.http.post(`${this.apiUrl}/register`, body);
   }
 }

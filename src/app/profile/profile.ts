@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions } from '@fullcalendar/core';
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FullCalendarModule} from '@fullcalendar/angular';
+import {CalendarOptions} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {HabitsModel} from '../habits/habits.service';
 import {Observable} from 'rxjs';
-import {User} from '../login/login.service';
 import {HttpClient} from '@angular/common/http';
 import {Store} from '@ngrx/store';
 import {selectUser} from '../state/user.selectors';
 import {Habits} from '../habits/habits';
+import {UsersModel} from '../models/user.models';
 
 @Component({
   selector: 'app-profile',
@@ -33,9 +33,9 @@ export class Profile {
       totalCalories: 2500,
       totalProteins: 180,
       meals: [
-        { type: "desayuno", food: "Huevos y pan", calories: "500", protein: "40" },
-        { type: "almuerzo", food: "Pollo con arroz", calories: "800", protein: "60" },
-        { type: "cena", food: "Pescado con verduras", calories: "600", protein: "50" }
+        {type: "desayuno", food: "Huevos y pan", calories: "500", protein: "40"},
+        {type: "almuerzo", food: "Pollo con arroz", calories: "800", protein: "60"},
+        {type: "cena", food: "Pescado con verduras", calories: "600", protein: "50"}
       ]
     },
     {
@@ -48,9 +48,9 @@ export class Profile {
       totalCalories: 2200,
       totalProteins: 120,
       meals: [
-        { type: "desayuno", food: "Tostadas con mermelada", calories: "400", protein: "10" },
-        { type: "almuerzo", food: "Pasta con carne", calories: "900", protein: "50" },
-        { type: "cena", food: "Ensalada y yogurt", calories: "500", protein: "20" }
+        {type: "desayuno", food: "Tostadas con mermelada", calories: "400", protein: "10"},
+        {type: "almuerzo", food: "Pasta con carne", calories: "900", protein: "50"},
+        {type: "cena", food: "Ensalada y yogurt", calories: "500", protein: "20"}
       ]
     },
   ];
@@ -58,7 +58,7 @@ export class Profile {
   currentMonth: number = new Date().getMonth() + 1;
   currentYear: number = new Date().getFullYear();
   selectedDate: string | null = null;
-  user$!: Observable<User | null>;
+  user$!: Observable<UsersModel | null>;
 
   handleSave(data: HabitsModel) {
     console.log('Datos guardados:', data);

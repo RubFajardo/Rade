@@ -1,11 +1,16 @@
 import {Component} from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {RouterLinkActive, RouterOutlet} from '@angular/router';
 import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {UsersModel} from './models/user.models';
+import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {selectUser} from './state/user.selectors';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule],
+  imports: [RouterOutlet, CommonModule, FormsModule, RouterLinkActive],
   template: `
     <nav class="bg-[#1a1a1a] text-white py-4 fixed z-50  w-screen ">
       <div class="px-12 mx-auto flex items-center justify-between w-full ">
@@ -48,12 +53,12 @@ import {CommonModule} from '@angular/common';
       </div>
     </nav>
 
-    <main class="bg-[#1a1a1a] relative min-h-screen flex items-center justify-center overflow-hidden w-full ">
+
+    <main class="bg-[#1a1a1a] relative min-h-screen flex items-center justify-center overflow-hidden w-full">
       <router-outlet></router-outlet>
     </main>
 
-
-    <!-- footer.component.html -->
+    <!-- Footer -->
     <footer class="w-full bg-[#1a1a1a] text-white">
       <div class="mx-12 py-20">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
@@ -61,13 +66,12 @@ import {CommonModule} from '@angular/common';
           <!-- Brand Section -->
           <div class="space-y-6">
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12  bg-amber-400 rounded-xl"></div>
+              <div class="w-12 h-12 bg-amber-400 rounded-xl"></div>
               <h3 class="text-3xl font-black">Rade</h3>
             </div>
             <p class="text-lg text-white/60 leading-relaxed">
               Tu compañero definitivo para alcanzar tus objetivos de salud y fitness.
             </p>
-            <!-- Social Media -->
             <div class="flex gap-4">
               <a href="#"
                  class="w-12 h-12 bg-[#2a2a2a] hover:bg-amber-400 rounded-xl flex items-center justify-center transition-all duration-300 group">
@@ -146,14 +150,12 @@ import {CommonModule} from '@angular/common';
                 placeholder="tu@email.com"
                 class="w-full px-6 py-4 bg-[#2a2a2a] text-white rounded-xl border-2 border-transparent focus:border-amber-400 outline-none transition-all duration-300 text-lg">
               <button
-                class="w-full px-6 py-4 bg-amber-400  text-[#1a1a1a] rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-amber-400/20 transition-all duration-300 hover:scale-105">
+                class="w-full px-6 py-4 bg-amber-400 text-[#1a1a1a] rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-amber-400/20 transition-all duration-300 hover:scale-105">
                 Enviar
               </button>
             </div>
           </div>
-
         </div>
-
 
         <!-- Bottom Bar -->
         <div class="pt-12 border-t border-white/10">
@@ -172,7 +174,13 @@ import {CommonModule} from '@angular/common';
       </div>
     </footer>
   `
-
 })
 export class App {
+  user$!: Observable<UsersModel | null>;
+
+  constructor(private store: Store) {
+    this.user$ = this.store.select(selectUser);
+  }
+
+
 }

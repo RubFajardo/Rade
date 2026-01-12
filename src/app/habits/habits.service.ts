@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable, switchMap, take} from 'rxjs';
-import { Store } from '@ngrx/store';
-import { selectUser } from '../state/user.selectors';
-import {User} from '../login/login.service';
+import {Store} from '@ngrx/store';
+import {selectUser} from '../state/user.selectors';
+import {UsersModel} from '../models/user.models';
 
 
 export interface HabitsModel {
@@ -28,7 +28,7 @@ export interface HabitsModel {
 })
 export class HabitsService {
 
-  user$!: Observable<User | null>;
+  user$!: Observable<UsersModel | null>;
 
   constructor(private http: HttpClient, private store: Store) {
     this.user$ = this.store.select(selectUser);
