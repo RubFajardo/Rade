@@ -1,14 +1,11 @@
-<!-- profile.html -->
-<div class="min-h-screen text-white p-6 pt-24">
+<div *ngIf="user$ | async as user" class="min-h-screen text-white p-6 pt-24">
   <div class="max-w-7xl mx-auto">
-    <!-- Main Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-      <!-- Left Side - Image -->
       <div class="relative">
         <div class="bg-[#1f1f1f] rounded-3xl overflow-hidden h-[600px]">
           <img
-            src="https://media.istockphoto.com/id/1326417862/es/foto/mujer-joven-riendo-mientras-se-relaja-en-casa.jpg?s=612x612&w=0&k=20&c=BQHE9M8b6hixE_TB1XzuvxobnyD4ylKMTprVbrhPxOU="
+            src="{{user.profile.avatar}}"
             alt="Perfil"
             class="w-full h-full object-cover"
           >
@@ -28,33 +25,28 @@
           />
         </div>
 
-        <!-- Right Side - Info Cards -->
         <div class="space-y-6">
 
-          <!-- Quote Card -->
 
-
-          <!-- User Info Card -->
           <div class="bg-[#1f1f1f] rounded-3xl p-8">
             <div class="flex items-center gap-4 mb-6">
               <div>
-                <h2 class="text-3xl font-bold">Sophia</h2>
-                <p class="text-gray-400 mt-2">Entusiasta del Fitness y Blogger</p>
+                <h2 class="text-3xl font-bold">{{ user.profile.name }}</h2>
               </div>
             </div>
 
             <div class="space-y-2 ">
               <div class="flex items-center">
                 <span class="text-gray-400 w-24">Edad:</span>
-                <span class="text-white">28</span>
+                <span class="text-white">{{ user.profile.age }}</span>
               </div>
               <div class="flex items-center">
                 <span class="text-gray-400 w-24">Ubicación:</span>
-                <span class="text-white">Austin, Texas</span>
+                <span class="text-white">{{ user.profile.city }}</span>
               </div>
               <div class="flex items-center">
                 <span class="text-gray-400 w-24">País:</span>
-                <span class="text-white">USA</span>
+                <span class="text-white">{{ user.profile.country }}</span>
               </div>
             </div>
           </div>
@@ -62,22 +54,19 @@
           <div class="bg-[#1f1f1f] rounded-3xl p-8">
             <p class="text-gray-300 text-lg">
               <span class="text-3xl text-amber-400">"</span>
-              lorem lorem loremlorem lorem lorem lorem loremloremlorem lorem lorem lorem loremloremlorem lorem lorem.
+              {{ user.profile.description }}
               <span class="text-3xl text-amber-400">"</span>
 
             </p>
 
           </div>
 
-          <!-- User Needs Card -->
           <div class="bg-[#1f1f1f] rounded-3xl p-8">
             <h3 class="text-xl font-bold mb-6">Necesidades del Usuario</h3>
 
             <div class="flex items-center gap-8">
-              <!-- Donut Chart -->
               <div class="relative w-48 h-48">
                 <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                  <!-- Background circle -->
                   <circle
                     cx="50"
                     cy="50"
@@ -265,3 +254,5 @@
     </div>
   </div>
 </div>
+
+

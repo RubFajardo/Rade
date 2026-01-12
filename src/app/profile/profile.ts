@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions } from '@fullcalendar/core';
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FullCalendarModule} from '@fullcalendar/angular';
+import {CalendarOptions} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {HabitsModel} from '../habits/habits.service';
 import {Observable} from 'rxjs';
-import {User} from '../login/login.service';
 import {HttpClient} from '@angular/common/http';
 import {Store} from '@ngrx/store';
 import {selectUser} from '../state/user.selectors';
 import {Habits} from '../habits/habits';
+import {UsersModel} from '../models/user.models';
 
 @Component({
   selector: 'app-profile',
@@ -33,9 +33,9 @@ export class Profile {
       totalCalories: 2500,
       totalProtein: 180,
       meals: [
-        { type: "desayuno", food: "Huevos y pan", calories: "500", protein: "40" },
-        { type: "almuerzo", food: "Pollo con arroz", calories: "800", protein: "60" },
-        { type: "cena", food: "Pescado con verduras", calories: "600", protein: "50" }
+        {type: "desayuno", food: "Huevos y pan", calories: "500", protein: "40"},
+        {type: "almuerzo", food: "Pollo con arroz", calories: "800", protein: "60"},
+        {type: "cena", food: "Pescado con verduras", calories: "600", protein: "50"}
       ]
     },
     {
@@ -48,9 +48,9 @@ export class Profile {
       totalCalories: 2200,
       totalProtein: 120,
       meals: [
-        { type: "desayuno", food: "Tostadas con mermelada", calories: "400", protein: "10" },
-        { type: "almuerzo", food: "Pasta con carne", calories: "900", protein: "50" },
-        { type: "cena", food: "Ensalada y yogurt", calories: "500", protein: "20" }
+        {type: "desayuno", food: "Tostadas con mermelada", calories: "400", protein: "10"},
+        {type: "almuerzo", food: "Pasta con carne", calories: "900", protein: "50"},
+        {type: "cena", food: "Ensalada y yogurt", calories: "500", protein: "20"}
       ]
     },
     {
@@ -63,9 +63,9 @@ export class Profile {
       totalCalories: 2700,
       totalProtein: 190,
       meals: [
-        { type: "desayuno", food: "Avena con leche y plátano", calories: "600", protein: "35" },
-        { type: "almuerzo", food: "Carne magra con patatas", calories: "900", protein: "70" },
-        { type: "cena", food: "Tortilla con ensalada", calories: "700", protein: "50" }
+        {type: "desayuno", food: "Avena con leche y plátano", calories: "600", protein: "35"},
+        {type: "almuerzo", food: "Carne magra con patatas", calories: "900", protein: "70"},
+        {type: "cena", food: "Tortilla con ensalada", calories: "700", protein: "50"}
       ]
     },
     {
@@ -78,9 +78,9 @@ export class Profile {
       totalCalories: 2400,
       totalProtein: 160,
       meals: [
-        { type: "desayuno", food: "Smoothie de proteínas", calories: "450", protein: "40" },
-        { type: "almuerzo", food: "Salmón con arroz integral", calories: "850", protein: "65" },
-        { type: "cena", food: "Pollo y brócoli", calories: "600", protein: "55" }
+        {type: "desayuno", food: "Smoothie de proteínas", calories: "450", protein: "40"},
+        {type: "almuerzo", food: "Salmón con arroz integral", calories: "850", protein: "65"},
+        {type: "cena", food: "Pollo y brócoli", calories: "600", protein: "55"}
       ]
     },
     {
@@ -93,9 +93,9 @@ export class Profile {
       totalCalories: 2100,
       totalProtein: 110,
       meals: [
-        { type: "desayuno", food: "Cereal con leche", calories: "400", protein: "20" },
-        { type: "almuerzo", food: "Hamburguesa casera", calories: "900", protein: "60" },
-        { type: "cena", food: "Sopa y pan", calories: "500", protein: "30" }
+        {type: "desayuno", food: "Cereal con leche", calories: "400", protein: "20"},
+        {type: "almuerzo", food: "Hamburguesa casera", calories: "900", protein: "60"},
+        {type: "cena", food: "Sopa y pan", calories: "500", protein: "30"}
       ]
     },
     {
@@ -108,9 +108,9 @@ export class Profile {
       totalCalories: 2800,
       totalProtein: 200,
       meals: [
-        { type: "desayuno", food: "Tortilla con avena", calories: "600", protein: "45" },
-        { type: "almuerzo", food: "Pollo al horno con quinoa", calories: "950", protein: "80" },
-        { type: "cena", food: "Atún con verduras", calories: "700", protein: "60" }
+        {type: "desayuno", food: "Tortilla con avena", calories: "600", protein: "45"},
+        {type: "almuerzo", food: "Pollo al horno con quinoa", calories: "950", protein: "80"},
+        {type: "cena", food: "Atún con verduras", calories: "700", protein: "60"}
       ]
     }
   ];
@@ -118,7 +118,7 @@ export class Profile {
   currentMonth: number = new Date().getMonth() + 1;
   currentYear: number = new Date().getFullYear();
   selectedDate: string | null = null;
-  user$!: Observable<User | null>;
+  user$!: Observable<UsersModel | null>;
 
   handleSave(data: HabitsModel) {
     console.log('Datos guardados:', data);
