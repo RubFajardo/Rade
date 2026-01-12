@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {RouterLinkActive, RouterOutlet} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {Friends, UsersModel} from './models/user.models';
+import {UsersModel} from './models/user.models';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {selectUser} from './state/user.selectors';
@@ -53,120 +53,6 @@ import {selectUser} from './state/user.selectors';
       </div>
     </nav>
 
-    <!-- Friends Floating Panel -->
-    <div *ngIf="user$ | async as user" class="fixed left-0 top-24 z-50 flex">
-      <!-- Toggle Button -->
-      <button
-        (click)="isFriendsPanelOpen = !isFriendsPanelOpen"
-        class="h-12 px-3 bg-[#1f1f1f] hover:bg-[#252525] rounded-r-xl flex items-center gap-2 transition-colors border-y border-r border-gray-700"
-        [class.rounded-r-none]="isFriendsPanelOpen"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24"
-             stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-        </svg>
-        <span class="text-sm font-medium text-white">{{ user.friends?.length || 0 }}</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-4 h-4 transition-transform duration-300 text-white"
-          [class.rotate-180]="isFriendsPanelOpen"
-          fill="none" viewBox="0 0 24 24" stroke="currentColor"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
-      </button>
-
-      <!-- Friends Panel -->
-      <div
-        class="bg-[#1f1f1f] border border-gray-700 rounded-r-2xl overflow-hidden transition-all duration-300 ease-in-out"
-        [class.w-80]="isFriendsPanelOpen"
-        [class.w-0]="!isFriendsPanelOpen"
-        [class.opacity-100]="isFriendsPanelOpen"
-        [class.opacity-0]="!isFriendsPanelOpen"
-      >
-        <div class="w-80 h-[calc(100vh-8rem)] flex flex-col">
-          <!-- Panel Header -->
-          <div class="p-4 border-b border-gray-700">
-            <h3 class="text-lg font-bold text-white">Amigos</h3>
-            <p class="text-sm text-gray-400">{{ user.friends?.length || 0 }} conexiones</p>
-          </div>
-
-          <!-- Search -->
-          <div class="p-4 border-b border-gray-700">
-            <div class="relative">
-              <svg xmlns="http://www.w3.org/2000/svg"
-                   class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none"
-                   viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-              </svg>
-              <input
-                type="text"
-                placeholder="Buscar amigos..."
-                [(ngModel)]="friendSearchQuery"
-                class="w-full bg-[#252525] text-white pl-10 pr-4 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/50"
-              >
-            </div>
-          </div>
-
-          <!-- Friends List -->
-          <div class="flex-1 overflow-y-auto">
-            <div *ngIf="getFilteredFriends(user.friends || []).length > 0" class="p-2 space-y-1">
-              <div
-                *ngFor="let friend of getFilteredFriends(user.friends || [])"
-                class="flex items-center gap-3 p-3 rounded-xl hover:bg-[#252525] transition-colors cursor-pointer group"
-              >
-                <div class="relative">
-                  <img
-                    [src]="friend.avatar"
-                    [alt]="friend.name"
-                    class="w-12 h-12 rounded-full object-cover ring-2 ring-transparent group-hover:ring-amber-400/50 transition-all"
-                  >
-                  <div
-                    class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-[#1f1f1f]"></div>
-                </div>
-
-                <div class="flex-1 min-w-0">
-                  <h4 class="font-semibold text-white text-sm truncate group-hover:text-amber-400 transition-colors">
-                    {{ friend.name }}
-                  </h4>
-                  <p class="text-xs text-gray-400 truncate">{{ friend.description }}</p>
-                </div>
-
-                <button class="opacity-0 group-hover:opacity-100 p-2 hover:bg-[#333] rounded-lg transition-all">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none"
-                       viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <!-- Empty State -->
-            <div *ngIf="getFilteredFriends(user.friends || []).length === 0" class="p-8 text-center">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mx-auto text-gray-600 mb-3" fill="none"
-                   viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-              </svg>
-              <p class="text-gray-400 text-sm">
-                {{ friendSearchQuery ? 'No se encontraron amigos' : 'No tienes amigos agregados' }}
-              </p>
-            </div>
-          </div>
-
-          <!-- Panel Footer -->
-          <div class="p-4 border-t border-gray-700">
-            <button
-              class="w-full py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-sm font-semibold transition-colors">
-              Buscar nuevos amigos
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <main class="bg-[#1a1a1a] relative min-h-screen flex items-center justify-center overflow-hidden w-full">
       <router-outlet></router-outlet>
@@ -291,21 +177,10 @@ import {selectUser} from './state/user.selectors';
 })
 export class App {
   user$!: Observable<UsersModel | null>;
-  isFriendsPanelOpen = false;
-  friendSearchQuery = '';
 
   constructor(private store: Store) {
     this.user$ = this.store.select(selectUser);
   }
 
-  getFilteredFriends(friends: Friends[]): Friends[] {
-    if (!this.friendSearchQuery.trim()) {
-      return friends;
-    }
-    const query = this.friendSearchQuery.toLowerCase();
-    return friends.filter(friend =>
-      friend.name.toLowerCase().includes(query) ||
-      friend.description.toLowerCase().includes(query)
-    );
-  }
+
 }
