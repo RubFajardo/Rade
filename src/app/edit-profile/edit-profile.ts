@@ -50,7 +50,6 @@ export class EditProfile implements OnChanges {
       });
     }
 
-    // Reset loading state when modal opens
     if (changes['isOpen'] && this.isOpen) {
       this.isLoading = false;
     }
@@ -58,7 +57,6 @@ export class EditProfile implements OnChanges {
 
   onClose(): void {
     this.close.emit();
-    // Reset form to original values
     if (this.profileData) {
       this.profileForm.patchValue(this.profileData);
     }
@@ -69,20 +67,15 @@ export class EditProfile implements OnChanges {
       this.isLoading = true;
       const formValue = this.profileForm.value;
 
-      // Simulate API call delay (remove in production)
       setTimeout(() => {
         this.save.emit(formValue);
         this.isLoading = false;
       }, 500);
     } else {
-      // Mark all fields as touched to show validation errors
       Object.keys(this.profileForm.controls).forEach(key => {
         this.profileForm.get(key)?.markAsTouched();
       });
     }
   }
 
-  onImageError(event: any): void {
-    event.target.src = 'https://via.placeholder.com/300x300?text=Error+al+cargar';
-  }
 }
