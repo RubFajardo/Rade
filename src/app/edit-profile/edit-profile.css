@@ -1,0 +1,67 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Aplicar animación al modal */
+.fixed.inset-0 {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.relative.bg-\[\#1f1f1f\] {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Scroll suave para el contenido */
+.overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 #1f1f1f;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  width: 8px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #1f1f1f;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Estilos para inputs con focus */
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+}
+
+/* Transición suave para la imagen de preview */
+img {
+  transition: all 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.05);
+}

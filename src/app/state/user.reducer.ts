@@ -69,7 +69,7 @@ export const initialState: UserState = {
       },
     ],
     config: {
-      invisibility:{
+      invisibility: {
         profile: true,
         habits: false,
         friends: true

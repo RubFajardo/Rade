@@ -1,0 +1,127 @@
+<div *ngIf="isOpen" class="fixed inset-0 z-50 overflow-y-auto">
+  <!-- Backdrop -->
+  <div
+    class="fixed inset-0 bg-black/50 bg-opacity-75 transition-opacity"
+    (click)="onClose()"
+  ></div>
+
+  <!-- Modal -->
+  <div class="flex min-h-full items-center justify-center p-4">
+    <div class="relative bg-[#1f1f1f] rounded-3xl w-full max-w-2xl p-8 shadow-xl">
+
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-white">Editar Perfil</h2>
+        <button
+          (click)="onClose()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="space-y-6">
+
+
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">
+            Nombre
+          </label>
+          <input
+            type="text"
+            formControlName="name"
+            placeholder="Tu nombre completo"
+            class="w-full px-4 py-3 bg-[#2a2a2a] border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+          />
+          <div *ngIf="profileForm.get('name')?.invalid && profileForm.get('name')?.touched"
+               class="text-red-400 text-sm mt-1">
+            El nombre es requerido
+          </div>
+        </div>
+
+        <!-- Age & City -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">
+              Edad
+            </label>
+            <input
+              type="number"
+              formControlName="age"
+              placeholder="25"
+              min="1"
+              max="120"
+              class="w-full px-4 py-3 bg-[#2a2a2a] border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+            />
+            <div *ngIf="profileForm.get('age')?.invalid && profileForm.get('age')?.touched"
+                 class="text-red-400 text-sm mt-1">
+              Edad inválida (1-120)
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">
+              Ciudad
+            </label>
+            <input
+              type="text"
+              formControlName="city"
+              placeholder="Tu ciudad"
+              class="w-full px-4 py-3 bg-[#2a2a2a] border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+            />
+          </div>
+        </div>
+
+        <!-- Country -->
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">
+            País
+          </label>
+          <input
+            type="text"
+            formControlName="country"
+            placeholder="Tu país"
+            class="w-full px-4 py-3 bg-[#2a2a2a] border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+          />
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label class="block text-sm font-medium text-gray-300 mb-2">
+            Descripción
+          </label>
+          <textarea
+            formControlName="description"
+            rows="4"
+            placeholder="Cuéntanos sobre ti..."
+            class="w-full px-4 py-3 bg-[#2a2a2a] border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all resize-none"
+          ></textarea>
+          <div class="text-gray-400 text-sm mt-1">
+            {{ profileForm.get('description')?.value?.length || 0 }} caracteres
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex gap-4 pt-4">
+          <button
+            type="button"
+            (click)="onClose()"
+            class="flex-1 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-xl font-semibold transition-colors"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            [disabled]="profileForm.invalid || isLoading"
+            class="flex-1 px-6 py-3 bg-amber-600 hover:bg-amber-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-xl font-semibold transition-colors"
+          >
+            {{ isLoading ? 'Guardando...' : 'Guardar Cambios' }}
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
