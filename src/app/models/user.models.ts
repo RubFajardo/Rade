@@ -12,7 +12,6 @@ export interface UsersModel {
       friends: boolean;
     }
     blockeds: Blockeds[],
-
   }
   pr: PR[]
 }
@@ -41,21 +40,38 @@ interface UserProfile {
   avatar: string;
 }
 
+export interface PendingFriendRequest {
+  sender: Friends;
+  requestId: number;
+}
+
 export interface Friends {
-  id: string;
+  id: number;
   name: string;
   description: string;
   avatar: string;
 }
 
-interface Blockeds {
-  id: string;
+export interface Blockeds {
+  id: number;
   name: string;
 }
 
-interface PR {
-  id: string;
+export interface PR {
+  id: number;
   workoutType: string;
   weightLifted: number;
   createdAt: string;
+}
+
+export interface AuthResponse {
+  token: string;
+  user: UsersModel;
+}
+
+export interface UserStore {
+  email: string;
+  name: string;
+  avatar: string;
+  id: number;
 }

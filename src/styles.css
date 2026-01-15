@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-/* profile.css */
-/* Estilos del calendario para que combine con el tema oscuro */
 :host ::ng-deep {
   .fc {
     background: #1a1a1a;

@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {HabitsModel, HabitsService} from './habits.service';
 import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-habits',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './habits.html'
 })
 export class Habits {
