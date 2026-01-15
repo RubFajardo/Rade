@@ -62,7 +62,7 @@ export const initialState: UserState = {
     },
     friends: [
       {
-        id: "usr_002",
+        id: 2,
         name: "Maria",
         description: "Entusiasta del fitness y la vida saludable",
         avatar: "https://www.infobae.com/resizer/v2/https%3A%2F%2Fs3.amazonaws.com%2Farc-wordpress-client-uploads%2Finfobae-wp%2Fwp-content%2Fuploads%2F2018%2F12%2F10152203%2Fcanguro-roger.jpg?auth=aecadc9ffd20cbd721e430ce9f4eb029ca37590515c0fb58ff7a7d92e0d2a886&smart=true&width=350&height=467&quality=85"
@@ -74,11 +74,11 @@ export const initialState: UserState = {
         habits: false,
         friends: true
       },
-      blockeds: [{id: "etc", name: "hori"}]
+      blockeds: [{id: 2, name: "hori"}]
     },
     pr: [
       {
-        id: "",
+        id: 2,
         workoutType: "",
         weightLifted: 24,
         createdAt: ""

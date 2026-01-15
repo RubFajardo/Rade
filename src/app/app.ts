@@ -6,11 +6,12 @@ import {UsersModel} from './models/user.models';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {selectUser} from './state/user.selectors';
+import {FriendsBar} from './core/layout/friends-bar/friends-bar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, FormsModule, RouterLinkActive, RouterLink],
+  imports: [RouterOutlet, CommonModule, FormsModule, RouterLinkActive, RouterLink, FriendsBar],
   template: `
     <nav class="bg-[#1a1a1a] text-white py-4 fixed z-50  w-screen ">
       <div class="px-12 mx-auto flex items-center justify-between w-full ">
@@ -32,8 +33,10 @@ import {selectUser} from './state/user.selectors';
       </div>
     </nav>
 
-
     <main class="bg-[#1a1a1a] relative min-h-screen flex items-center justify-center overflow-hidden w-full">
+      @if (user$) {
+        <app-friends-bar></app-friends-bar>
+      }
       <router-outlet></router-outlet>
     </main>
 
