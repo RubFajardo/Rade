@@ -160,7 +160,7 @@
             <div class="flex justify-between items-start mb-4">
               <div>
                 <h4 class="font-bold text-lg">{{ habit.date }}</h4>
-                <p class="text-sm text-gray-400">{{ habit.workout || 'Día de Descanso' }}</p>
+                <p class="text-sm text-gray-400">{{ habit.selectedWorkout || 'Día de Descanso' }}</p>
               </div>
               <span class="px-3 py-1 rounded-full text-xs font-semibold"
                     [class.bg-amber-400]="habit.trained"
@@ -179,7 +179,7 @@
 
               <div>
                 <span class="text-xs text-gray-400">Sueño:</span>
-                <p class="text-sm capitalize">{{ habit.sleep }}</p>
+                <p class="text-sm capitalize">{{ habit.sleepQuality }}</p>
               </div>
 
               <div>
@@ -195,7 +195,7 @@
               </div>
               <div class="flex justify-between text-sm">
                 <span class="text-gray-400">Proteína:</span>
-                <span class="font-semibold">{{ habit.totalProtein }}g</span>
+                <span class="font-semibold">{{ habit.totalProteins }}g</span>
               </div>
             </div>
 

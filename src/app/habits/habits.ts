@@ -68,13 +68,13 @@ export class Habits {
     const data: HabitsModel = {
       date: this.date,
       trained: this.trained,
-      workout: this.selectedWorkout,
+      selectedWorkout: this.selectedWorkout,
       extraTraining: this.extraTraining,
-      sleep: this.sleepQuality,
+      sleepQuality: this.sleepQuality,
       meals: this.meals,
       description: this.description,
       totalCalories: this.totalCalories,
-      totalProtein: this.totalProteins,
+      totalProteins: this.totalProteins,
     };
   }
 
