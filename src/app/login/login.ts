@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {User, UserService} from './login.service';
+import {UserService} from './login.service';
 import {Store} from '@ngrx/store';
 import {loginUser} from '../state/user.actions';
 import {RouterLink} from '@angular/router';
+import {Observable} from 'rxjs';
 import {UsersModel} from '../models/user.models';
 
 @Component({
@@ -16,7 +17,7 @@ import {UsersModel} from '../models/user.models';
 export class Login {
   isLoginMode = true;
   showPassword = false;
-  user$!: Observable<User | null>;
+  user$!: Observable<UsersModel | null>;
   successRegister: boolean = false;
 
   toggleMode() {
@@ -34,14 +35,12 @@ export class Login {
 
 
   onSubmit(form: any) {
-    const user: User = form.value;
 
     if (this.isLoginMode) {
 
-
-      this.userService.login(user).subscribe({
+      this.userService.login(form.value).subscribe({
         next: (res) => {
-          const user: User = res.user
+          const user: UsersModel = res.user
           this.store.dispatch(loginUser({user}));
           console.log('✅ Login correcto:', res);
         },
@@ -51,9 +50,8 @@ export class Login {
       });
 
     } else {
-      console.log('Registrando:', user);
 
-      this.userService.register(user).subscribe({
+      this.userService.register(form.value).subscribe({
         next: (res) => {
           console.log('✅ Registro correcto:', res);
           this.successRegister = true;
@@ -65,6 +63,4 @@ export class Login {
       });
     }
   }
-
 }
-//nota

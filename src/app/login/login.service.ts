@@ -1,9 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {AuthResponse} from '../models/user.models';
 
-export interface User {
-  id: number;
+
+export interface LoginPayload {
+  email: string;
+  password: string;
+}
+
+export interface RegisterPayload {
   name: string;
   email: string;
   password: string;
@@ -16,13 +22,13 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  login(user: User): Observable<any> {
-    const body = { password: user.password, email: user.email };
-    return this.http.post(`${this.apiUrl}/login`, body);
+  login(data: LoginPayload): Observable<AuthResponse> {
+    const body = { password: data.password, email: data.email };
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, body);
   }
 
-  register(user: User): Observable<any> {
-    const body = {name: user.name, password: user.password, email: user.email};
+  register(data: RegisterPayload): Observable<any> {
+    const body = {name: data.name, password: data.password, email: data.email};
     return this.http.post(`${this.apiUrl}/register`, body);
   }
 }
