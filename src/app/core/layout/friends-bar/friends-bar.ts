@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {Friends, PendingFriendRequest} from '../../../models/user.models';
 import {FormsModule} from '@angular/forms';
+import {Store} from '@ngrx/store';
+import {FriendsService} from './friends-bar.service';
 
 @Component({
   selector: 'app-friends-bar',
@@ -9,6 +11,8 @@ import {FormsModule} from '@angular/forms';
   styleUrl: './friends-bar.css'
 })
 export class FriendsBar {
+
+  constructor(private store: Store, private friendsService: FriendsService) {}
 
   isFriendsMode: boolean = true;
   isCollapsed: boolean = true;
@@ -158,4 +162,49 @@ export class FriendsBar {
       f.name.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
   }
+
+  fetchFriends () {
+    this.friendsService.getFriends().subscribe({
+      next: (res) => {
+      this.friends = res;},
+      error: (err) => {
+        console.error('❌ Error en login:', err);
+      }
+    })};
+
+  fetchPendingRequests () {
+    this.friendsService.getPendingRequests().subscribe({
+      next: (res) => {
+        this.pendingRequests = res;},
+      error: (err) => {
+        console.error('❌ Error en login:', err);
+      }
+    })
+  }
+
+  acceptFriend (requestId: number) {
+    this.friendsService.acceptFriend(requestId).subscribe({next: (res) => {
+
+      this.pendingRequests = this.pendingRequests.filter(fr => fr.requestId !== requestId);
+      console.log('✅ Amigo aceptado:', res);
+      },
+      error: (err) => {
+        console.error('❌ Error en registro:', err);
+      }
+    });
+  }
+
+  rejectFriend (requestId: number) {
+    this.friendsService.rejectFriend(requestId).subscribe({next: (res) => {
+        this.pendingRequests = this.pendingRequests.filter(fr => fr.requestId !== requestId);
+        console.log('✅ Amigo rechazado:', res);
+      },
+      error: (err) => {
+        console.error('❌ Error en registro:', err);
+      }
+    });
+  }
+
+
+
 }

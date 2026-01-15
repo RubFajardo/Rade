@@ -28,8 +28,12 @@ export class FriendsService {
     return this.http.put(`${this.apiUrl}/request/${requestId}/reject`, {});
   }
 
-  getFriends(userId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/${userId}/friends`);
+  getPendingRequests(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/request/pending`);
+  }
+
+  getFriends(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getFriends`);
   }
 
 }

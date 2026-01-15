@@ -1,12 +1,12 @@
-<div class="window shadow-lg rounded-t-xl overflow-hidden bg-gradient-to-t from-[#FFD22A]  to-[#FF3B1F]">
+<div class="window shadow-lg rounded-t-xl overflow-hidden ">
 
   <div class="top-bar cursor-pointer bg-amber-400 p-3 flex justify-between items-center" (click)="toggleCollapse()">
     <div class="flex items-center gap-2">
       <img class="w-8 h-8 rounded-full" src="https://i.pinimg.com/564x/58/ac/2e/58ac2e722527319666603da8a7570f53.jpg">
-      <span class="font-bold">Friends</span>
+      <span class="font-bold text-lg">Friends</span>
     </div>
     <span
-      class="inline-block transition-transform duration-300 rotate-90"
+      class="inline-block transition-transform duration-300 rotate-90 me-2"
       [class.rotate-[-90deg]]="isCollapsed"
     >
   ❮
@@ -35,19 +35,19 @@
 
             <div
               class="flex items-center gap-3 p-2 rounded-xl
-             hover:bg-slate-50 transition-all duration-200 group"
+             hover:bg-slate-700/50 transition-all duration-200 group"
             >
               <img
                 [src]="friend.avatar || 'assets/default-avatar.png'"
                 [alt]="friend.name"
-                class="w-11 h-11 rounded-full object-cover shadow-sm"
+                class="w-12 h-12 rounded-full object-cover shadow-sm"
               />
 
               <div class="flex flex-col min-w-0">
-        <span class="text-left font-medium text-black truncate">
+        <span class="text-left font-medium text-white truncate">
           {{ friend.name }}
         </span>
-                <span class="text-sm text-left text-black truncate">
+                <span class="text-sm text-left text-white truncate">
           {{ friend.description }}
         </span>
               </div>
@@ -59,18 +59,18 @@
       } @else {
         <div class="max-h-96 overflow-y-auto pr-1 space-y-1">
         @for (request of pendingRequests; track request.requestId) {
-          <div class="flex items-center gap-3 p-3 rounded-xl  shadow-sm hover:bg-gray-50 transition-all duration-200">
+          <div class="flex items-center gap-3 p-3 rounded-xl  shadow-sm hover:bg-slate-700/50 transition-all duration-200">
 
             <img
               [src]="request.sender.avatar || 'assets/default-avatar.png'"
               [alt]="request.sender.name"
-              class="w-12 h-12 rounded-full object-cover border border-gray-200"
+              class="w-12 h-12 rounded-full object-cover shadow-sm"
             />
 
-            <div class="flex flex-col min-w-0 flex-grow"> <span class="text-left font-bold text-black truncate">
+            <div class="flex flex-col min-w-0 flex-grow"> <span class="text-left font-bold text-white truncate">
       {{ request.sender.name }}
     </span>
-              <span class="text-sm text-left text-black truncate">
+              <span class="text-sm text-left text-white truncate">
       {{ request.sender.description }}
     </span>
             </div>

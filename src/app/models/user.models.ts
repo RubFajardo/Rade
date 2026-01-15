@@ -12,7 +12,6 @@ export interface UsersModel {
       friends: boolean;
     }
     blockeds: Blockeds[],
-
   }
   pr: PR[]
 }
@@ -67,12 +66,7 @@ export interface PR {
 
 export interface AuthResponse {
   token: string;
-  user: {
-    email: string;
-    name: string;
-    avatar: string;
-    id: number;
-  }
+  user: UsersModel;
 }
 
 export interface UserStore {

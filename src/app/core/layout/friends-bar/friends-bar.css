@@ -4,13 +4,6 @@ body{
   font-family: 'Roboto', sans-serif;
   user-select:none;
 }
-.info{
-  text-align:center;
-  margin-top:30px;
-  color:#3333;
-  padding:10px;
-  position:relative;
-}
 .window{
   width:15%;
   max-height: 40%;
@@ -25,42 +18,9 @@ body{
   bottom:0px;
   transition:all 0.2s;
   text-align:center;
-}
-
-.wrapper{
-  max-width:100%;
-  height:45px;
-  transition:all 0.3s;
-  display:flex;
-  justify-content:space-between;
-  padding:0px 5px;
-}
-.wrapper:hover{
-  cursor:pointer;
-}
-.profile{
-  display:flex;
-  align-items:center;
-  user-select:none;
-}
-.profile p{
-  font-size:18px;
-  margin-left:12px;
-}
-
-.pp{
-  margin-left:8px;
-  width:35px;
-  border-radius:50%;
-  margin-top: 5px;
-}
-.icons p{
-  font-weight:bold;
-  margin-right:15px;
-  transition-property:background;
-  border-radius:50%;
-  transition-duration:0.3s;
-  transform:rotate(-90deg);
+  background-image:url("https://i.pinimg.com/736x/3e/66/9c/3e669cc49bb61f3b4a90890715c59fbc.jpg");
+  background-position-x:-28px;
+  z-index: 1000;
 }
 .search-bar{
   outline:none;
@@ -80,15 +40,19 @@ body{
 .search-bar:hover{
   border:2px solid #363636;
 }
-.connect{
-  text-decoration:none;
-  font-size:16px;
-  color:#1d72c7;
-  padding:10px;
-  border-radius:5px;
-  margin-top:90px;
-  display:inline-block;
+
+
+::-webkit-scrollbar {
+  width: 10px;
 }
-.connect:hover{
-  background:#d7ecfc;
+
+/* fondo de la barra */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* barra deslizable */
+::-webkit-scrollbar-thumb {
+  background-color: #ffba00;
+  border-radius: 9999px;
 }
