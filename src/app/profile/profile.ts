@@ -11,16 +11,21 @@ import {Store} from '@ngrx/store';
 import {selectUser} from '../state/user.selectors';
 import {Habits} from '../habits/habits';
 import {UsersModel} from '../models/user.models';
+import {EditProfile, ProfileData} from '../edit-profile/edit-profile';
+
+//import {EditProfileModal, ProfileData} from './edit-profile';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FullCalendarModule, Habits],
+  imports: [CommonModule, FullCalendarModule, Habits, EditProfile],
   standalone: true,
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
 export class Profile {
   isModalOpen = false;
+  isEditProfileModalOpen = false;
+  currentUser: UsersModel | null = null;
 
   habitsData: HabitsModel[] = [
     {
@@ -60,17 +65,46 @@ export class Profile {
   selectedDate: string | null = null;
   user$!: Observable<UsersModel | null>;
 
+  constructor(private http: HttpClient, private store: Store) {
+    this.user$ = this.store.select(selectUser);
+
+    // Subscribe to user data to keep a local copy for the edit modal
+    this.user$.subscribe(user => {
+      this.currentUser = user;
+    });
+  }
+
   handleSave(data: HabitsModel) {
-    console.log('Datos guardados:', data);
+    console.log('Datos de hábitos guardados:', data);
+  }
+
+  handleProfileSave(data: ProfileData) {
+    console.log('Datos de perfil guardados:', data);
+
+
+    // this.http.put('/api/user/profile', data).subscribe({
+    //   next: (response) => {
+    //     console.log('Perfil actualizado exitosamente', response);
+    //     // Actualizar el store con los nuevos datos
+    //     // this.store.dispatch(updateUserProfile({ profile: data }));
+    //     this.isEditProfileModalOpen = false;
+    //   },
+    //   error: (error) => {
+    //     console.error('Error al actualizar perfil', error);
+    //   }
+    // });
+
+    // Por ahora solo cerramos el modal
+    this.isEditProfileModalOpen = false;
+  }
+
+  openEditProfileModal() {
+    this.isEditProfileModalOpen = true;
   }
 
   onMonthChange(date: Date) {
     this.currentMonth = date.getMonth() + 1;
     this.currentYear = date.getFullYear();
-  }
-
-  constructor(private http: HttpClient, private store: Store) {
-    this.user$ = this.store.select(selectUser);
   }
 
   calendarOptions: CalendarOptions = {
@@ -86,13 +120,11 @@ export class Profile {
     dateClick: (info) => this.onDateClick(info.dateStr),
     datesSet: (arg) => this.onMonthChange(arg.view.currentStart),
     dayCellDidMount: (arg) => {
-      // Fecha actual
       const y = arg.date.getFullYear();
       const m = String(arg.date.getMonth() + 1).padStart(2, '0');
       const d = String(arg.date.getDate()).padStart(2, '0');
       const cellDate = `${y}-${m}-${d}`;
 
-      // Busca el registro por esa fecha
       const habit = this.habitsData.find(h => h.date === cellDate);
 
       if (habit) {
@@ -102,14 +134,12 @@ export class Profile {
       } else {
         arg.el.style.backgroundColor = 'white';
       }
-
     }
   };
 
   onDateClick(dateStr: string) {
     console.log('Día seleccionado:', dateStr);
-    this.selectedDate = dateStr
-    // GET a la API
+    this.selectedDate = dateStr;
   }
 
   get filteredHabits() {
@@ -121,6 +151,19 @@ export class Profile {
 
       return sameMonth && sameYear && sameDay;
     });
+  }
+
+  get profileData(): ProfileData | null {
+    if (!this.currentUser?.profile) return null;
+
+    return {
+      avatar: this.currentUser.profile.avatar,
+      name: this.currentUser.name,
+      age: this.currentUser.profile.age,
+      city: this.currentUser.profile.city,
+      country: this.currentUser.profile.country,
+      description: this.currentUser.profile.description
+    };
   }
 
   resetCalendar() {
