@@ -28,7 +28,8 @@ export class Login {
 
   constructor(private userService: UserService,
               private store: Store,
-              private cookieService: CookieService) {}
+              private cookieService: CookieService) {
+  }
 
   loginWithGoogle() {
     window.location.href = 'http://localhost:8080/oauth2/authorization/google';
@@ -40,18 +41,18 @@ export class Login {
     if (this.isLoginMode) {
 
       this.userService.login(form.value).subscribe({
-        next: (res:AuthResponse) => {
+        next: (res: AuthResponse) => {
           const user: UsersModel = res.user;
           this.store.dispatch(loginUser({user}));
           this.cookieService.set(
-    'auth_token',
-    res.token,
-    1,              // días guardado
-    '/',
-    undefined,
-    true,          //
-    'Strict'
-  );
+            'auth_token',
+            res.token,
+            1,              // días guardado
+            '/',
+            undefined,
+            true,          //
+            'Strict'
+          );
           console.log('✅ Login correcto:', res);
         },
         error: (err) => {

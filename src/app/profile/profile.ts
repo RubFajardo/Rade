@@ -5,19 +5,21 @@ import {CalendarOptions} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {HabitsModel} from '../habits/habits.service';
-import {Observable} from 'rxjs';
+import {Observable, take} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Store} from '@ngrx/store';
 import {selectUser} from '../state/user.selectors';
 import {Habits} from '../habits/habits';
 import {UsersModel} from '../models/user.models';
 import {EditProfile, ProfileData} from '../edit-profile/edit-profile';
+import {EditAvatar} from '../edit-avatar/edit-avatar';
+import {UserService} from '../services/user';
 
 //import {EditProfileModal, ProfileData} from './edit-profile';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FullCalendarModule, Habits, EditProfile],
+  imports: [CommonModule, FullCalendarModule, Habits, EditProfile, EditAvatar],
   standalone: true,
   templateUrl: './profile.html',
   styleUrl: './profile.css'
@@ -26,6 +28,8 @@ export class Profile {
   isModalOpen = false;
   isEditProfileModalOpen = false;
   currentUser: UsersModel | null = null;
+  isUploadAvatarModalOpen = false;
+
 
   habitsData: HabitsModel[] = [
     {
@@ -65,7 +69,7 @@ export class Profile {
   selectedDate: string | null = null;
   user$!: Observable<UsersModel | null>;
 
-  constructor(private http: HttpClient, private store: Store) {
+  constructor(private http: HttpClient, private store: Store, private userService: UserService) {
     this.user$ = this.store.select(selectUser);
 
     // Subscribe to user data to keep a local copy for the edit modal
@@ -73,6 +77,7 @@ export class Profile {
       this.currentUser = user;
     });
   }
+
 
   handleSave(data: HabitsModel) {
     console.log('Datos de hábitos guardados:', data);
@@ -105,6 +110,26 @@ export class Profile {
   onMonthChange(date: Date) {
     this.currentMonth = date.getMonth() + 1;
     this.currentYear = date.getFullYear();
+  }
+
+  openUploadAvatarModal(): void {
+    this.isUploadAvatarModalOpen = true;
+  }
+
+  handleAvatarUpload(file: File): void {
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    this.userService.uploadAvatar(formData).subscribe({
+      next: (response: { avatarUrl: string; }) => {
+        // Actualizar directamente la URL del avatar
+        this.user$.pipe(take(1)).subscribe(user => {
+          // @ts-ignore
+          user.profile.avatar = response.avatarUrl;
+        });
+        this.isUploadAvatarModalOpen = false;
+      }
+    });
   }
 
   calendarOptions: CalendarOptions = {
