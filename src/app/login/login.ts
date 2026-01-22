@@ -21,6 +21,7 @@ export class Login {
   user$!: Observable<UsersModel | null>;
   successRegister: boolean = false;
 
+
   toggleMode() {
     this.isLoginMode = !this.isLoginMode;
   }
@@ -47,10 +48,10 @@ export class Login {
           this.cookieService.set(
             'auth_token',
             res.token,
-            1,              // días guardado
+            1,
             '/',
             undefined,
-            true,          //
+            true,
             'Strict'
           );
           console.log('✅ Login correcto:', res);

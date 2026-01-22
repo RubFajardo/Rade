@@ -1,0 +1,116 @@
+<div *ngIf="isOpen" class="fixed inset-0 z-50 overflow-y-auto">
+  <div
+    class="fixed inset-0 bg-black/50 bg-opacity-75 transition-opacity"
+    (click)="onClose()"
+  ></div>
+
+  <div class="flex min-h-full items-center justify-center p-4">
+    <div class="relative bg-[#1f1f1f] rounded-3xl w-full max-w-md p-8 shadow-xl">
+
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-white">Cambiar Foto de Perfil</h2>
+        <button
+          (click)="onClose()"
+          class="text-gray-400 hover:text-white transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Preview Area -->
+        <div class="flex flex-col items-center">
+          <div class="relative w-48 h-48 rounded-full overflow-hidden bg-[#2a2a2a] border-4 border-gray-700">
+            <img
+              *ngIf="previewUrl"
+              [src]="previewUrl"
+              alt="Preview"
+              class="w-full h-full object-cover"
+            />
+            <div *ngIf="!previewUrl" class="flex items-center justify-center h-full">
+              <svg class="w-20 h-20 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="errorMessage" class="mt-4 text-red-400 text-sm text-center">
+            {{ errorMessage }}
+          </div>
+        </div>
+
+        <!-- Hidden File Input -->
+        <input
+          type="file"
+          id="avatar-file-input"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          class="hidden"
+        />
+
+        <!-- Upload Button -->
+        <button
+          type="button"
+          (click)="triggerFileInput()"
+          class="w-full px-6 py-3 bg-[#2a2a2a] hover:bg-[#353535] text-white rounded-xl font-semibold transition-colors border border-gray-700 flex items-center justify-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          Seleccionar Imagen
+        </button>
+
+        <!-- Remove Image Button -->
+        <button
+          *ngIf="previewUrl"
+          type="button"
+          (click)="removeImage()"
+          class="w-full px-6 py-3 bg-red-600/10 hover:bg-red-600/20 text-red-400 rounded-xl font-semibold transition-colors border border-red-600/30 flex items-center justify-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+          Quitar Imagen
+        </button>
+
+        <!-- File Info -->
+        <div *ngIf="selectedFile" class="text-sm text-gray-400 text-center">
+          <p>{{ selectedFile.name }}</p>
+          <p>{{ (selectedFile.size / 1024 / 1024).toFixed(2) }} MB</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-4 pt-4">
+          <button
+            type="button"
+            (click)="onClose()"
+            class="flex-1 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-xl font-semibold transition-colors"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            (click)="onSubmit()"
+            [disabled]="!selectedFile || isLoading"
+            class="flex-1 px-6 py-3 bg-amber-600 hover:bg-amber-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-xl font-semibold transition-colors"
+          >
+            {{ isLoading ? 'Subiendo...' : 'Guardar Foto' }}
+          </button>
+        </div>
+
+        <!-- Instructions -->
+        <div class="text-xs text-gray-400 text-center space-y-1">
+          <p>Formatos aceptados: JPG, PNG, GIF, WebP</p>
+          <p>Tamaño máximo: 5MB</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
