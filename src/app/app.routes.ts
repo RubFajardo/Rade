@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { Home } from './home/home';
-import {Login} from './login/login';
-import {Habits} from './habits/habits';
-import {Profile} from './profile/profile';
+import {Login} from './features/auth/pages/login/login';
+import {Habits} from './features/profile/components/habits/habits';
+import {Profile} from './features/profile/pages/profile-page/profile';
+import {Home} from './features/home/pages/home-page/home';
 
 export const routes: Routes = [
   { path: '', component: Home }, // ruta raíz

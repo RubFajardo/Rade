@@ -1,17 +1,16 @@
-import {Component} from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {Component, inject} from '@angular/core';
+import {RouterLink, RouterOutlet} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {UsersModel} from './models/user.models';
-import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import {selectUser} from './state/user.selectors';
 import {FriendsBar} from './core/layout/friends-bar/friends-bar';
+import {selectUser} from './features/auth/state/auth.selectors';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, FormsModule, RouterLinkActive, RouterLink, FriendsBar],
+  imports: [RouterOutlet, CommonModule, FormsModule, RouterLink, FriendsBar],
   template: `
     <nav class="bg-[#1a1a1a] text-white py-4 fixed z-50  w-screen ">
       <div class="px-12 mx-auto flex items-center justify-between w-full ">
@@ -28,13 +27,11 @@ import {FriendsBar} from './core/layout/friends-bar/friends-bar';
             <span>Get Started</span>
           </a>
         </div>
-
-
       </div>
     </nav>
 
     <main class="bg-[#1a1a1a] relative min-h-screen flex items-center justify-center overflow-hidden w-full">
-      @if (user$) {
+      @if (user() == null) {
         <app-friends-bar></app-friends-bar>
       }
       <router-outlet></router-outlet>
@@ -158,11 +155,8 @@ import {FriendsBar} from './core/layout/friends-bar/friends-bar';
   `
 })
 export class App {
-  user$!: Observable<UsersModel | null>;
 
-  constructor(private store: Store) {
-    this.user$ = this.store.select(selectUser);
-  }
-
+  private store = inject(Store);
+  user = toSignal(this.store.select(selectUser));
 
 }

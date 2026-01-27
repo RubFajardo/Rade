@@ -2,7 +2,7 @@
 
   <div class="top-bar cursor-pointer bg-amber-400 p-3 flex justify-between items-center" (click)="toggleCollapse()">
     <div class="flex items-center gap-2">
-      <img class="w-8 h-8 rounded-full" src="https://i.pinimg.com/564x/58/ac/2e/58ac2e722527319666603da8a7570f53.jpg">
+      <img class="w-8 h-8 rounded-full" [src]="currentUser()?.profile?.avatar" alt="Avatar">
       <span class="font-bold text-lg">Friends</span>
     </div>
     <span
@@ -31,7 +31,7 @@
         <input [(ngModel)]="searchQuery" class="search-bar" type="text">
 
         <div class="max-h-96 overflow-y-auto pr-1 space-y-1">
-          @for (friend of filteredFriends; track friend.id) {
+          @for (friend of filteredFriends(); track friend.id) {
 
             <div
               class="flex items-center gap-3 p-2 rounded-xl
@@ -58,7 +58,7 @@
 
       } @else {
         <div class="max-h-96 overflow-y-auto pr-1 space-y-1">
-        @for (request of pendingRequests; track request.requestId) {
+        @for (request of pendingRequests(); track request.requestId) {
           <div class="flex items-center gap-3 p-3 rounded-xl  shadow-sm hover:bg-slate-700/50 transition-all duration-200">
 
             <img
