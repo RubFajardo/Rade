@@ -2,7 +2,8 @@
 
   <div class="top-bar cursor-pointer bg-amber-400 p-3 flex justify-between items-center" (click)="toggleCollapse()">
     <div class="flex items-center gap-2">
-      <img class="w-8 h-8 rounded-full" [src]="currentUser()?.profile?.avatar" alt="Avatar">
+      <img class="w-8 h-8 rounded-full" [src]="currentUser()?.profile?.avatar || 'https://i.pinimg.com/474x/7f/9e/f5/7f9ef552cb071c696e932222260af318.jpg'"
+           alt="Avatar">
       <span class="font-bold text-lg">Friends</span>
     </div>
     <span
@@ -30,82 +31,117 @@
       @if (isFriendsMode) {
         <input [(ngModel)]="searchQuery" class="search-bar" type="text">
 
-        <div class="max-h-96 overflow-y-auto pr-1 space-y-1">
-          @for (friend of filteredFriends(); track friend.id) {
+        @if (filteredFriends().length > 0) {
+          <div class="max-h-96 overflow-y-auto pr-1 space-y-1">
+            @for (friend of filteredFriends(); track friend.id) {
 
-            <div
-              class="flex items-center gap-3 p-2 rounded-xl
+              <div
+                class="flex items-center gap-3 p-2 rounded-xl
              hover:bg-slate-700/50 transition-all duration-200 group"
-            >
-              <img
-                [src]="friend.avatar || 'assets/default-avatar.png'"
-                [alt]="friend.name"
-                class="w-12 h-12 rounded-full object-cover shadow-sm"
-              />
+              >
+                <img
+                  [src]="friend.avatar || 'assets/default-avatar.png'"
+                  [alt]="friend.name"
+                  class="w-12 h-12 rounded-full object-cover shadow-sm"
+                />
 
-              <div class="flex flex-col min-w-0">
+                <div class="flex flex-col min-w-0">
         <span class="text-left font-medium text-white truncate">
           {{ friend.name }}
         </span>
-                <span class="text-sm text-left text-white truncate">
+                  <span class="text-sm text-left text-white truncate">
           {{ friend.description }}
         </span>
+                </div>
               </div>
-            </div>
 
-          }
-        </div>
+            }
+          </div>
+        } @else {
+          <p class="text-white">No tienes amigos agregados todavía</p>
+          <button class="mt-4 px-6 py-2 mb-5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl transition-colors">
+            Buscar amigos
+          </button>
+        }
 
       } @else {
-        <div class="max-h-96 overflow-y-auto pr-1 space-y-1">
-        @for (request of pendingRequests(); track request.requestId) {
-          <div class="flex items-center gap-3 p-3 rounded-xl  shadow-sm hover:bg-slate-700/50 transition-all duration-200">
 
-            <img
-              [src]="request.sender.avatar || 'assets/default-avatar.png'"
-              [alt]="request.sender.name"
-              class="w-12 h-12 rounded-full object-cover shadow-sm"
-            />
+        @if (pendingRequests().length > 0) {
+          <div class="max-h-96 overflow-y-auto pr-1 space-y-1">
+            @for (request of pendingRequests(); track request.requestId) {
+              <div class="flex items-center gap-3 p-3 rounded-xl shadow-sm hover:bg-slate-700/50 transition-all duration-200">
 
-            <div class="flex flex-col min-w-0 flex-grow"> <span class="text-left font-bold text-white truncate">
-      {{ request.sender.name }}
-    </span>
-              <span class="text-sm text-left text-white truncate">
-      {{ request.sender.description }}
-    </span>
-            </div>
+                <img
+                  [src]="request.sender.avatar || 'assets/default-avatar.png'"
+                  [alt]="request.sender.name"
+                  class="w-12 h-12 rounded-full object-cover shadow-sm"
+                />
 
-            <div class="flex items-center gap-2 ml-auto flex-shrink-0">
-              <button
+                <div class="flex flex-col min-w-0 flex-grow">
+         <span class="text-left font-bold text-white truncate">
+          {{ request.sender.name }}
+         </span>
 
-                class="w-8 h-8 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
-                aria-label="Aceptar solicitud"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                     xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-              </button>
+                  <span class="text-sm text-left text-white truncate">
+          {{ request.sender.description }}
+         </span>
+                </div>
 
-              <button
+                <div class="flex items-center gap-2 ml-auto flex-shrink-0">
+                  <button
+                    class="w-8 h-8 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+                    aria-label="Aceptar solicitud"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </button>
 
-                class="w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
-                aria-label="Rechazar solicitud"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                     xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-              </button>
+                  <button
+                    class="w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                    aria-label="Rechazar solicitud"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
 
-            </div>
-
+              </div>
+            }
           </div>
+
+
+        } @else {
+          <p class="text-white mt-5">No tienes solicitudes pendientes</p>
+          <button class="mt-4 px-6 py-2 mb-5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl transition-colors">
+            Buscar amigos
+          </button>
         }
-        </div>
       }
     </div>
-
   }
 </div>
 

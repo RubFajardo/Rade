@@ -6,6 +6,7 @@ import {Store} from '@ngrx/store';
 import {FriendsBar} from './core/layout/friends-bar/friends-bar';
 import {selectUser} from './features/auth/state/auth.selectors';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {initAuth} from './features/auth/state/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,7 @@ import {toSignal} from '@angular/core/rxjs-interop';
     </nav>
 
     <main class="bg-[#1a1a1a] relative min-h-screen flex items-center justify-center overflow-hidden w-full">
-      @if (user() == null) {
+      @if (user()) {
         <app-friends-bar></app-friends-bar>
       }
       <router-outlet></router-outlet>
@@ -158,5 +159,9 @@ export class App {
 
   private store = inject(Store);
   user = toSignal(this.store.select(selectUser));
+
+  ngOnInit() {
+    this.store.dispatch(initAuth());
+  }
 
 }

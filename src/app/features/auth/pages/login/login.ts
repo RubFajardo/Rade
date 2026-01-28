@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, effect, inject} from '@angular/core';
 
 import {FormsModule} from '@angular/forms';
 import {Store} from '@ngrx/store';
@@ -24,14 +24,24 @@ export class Login {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  constructor() {}
-
   errorMessage = toSignal(this.store.select(selectLoginError));
   isLoading = toSignal(this.store.select(selectLoading));
   successMessage = toSignal(this.store.select(selectSuccessMessage));
 
   loginWithGoogle() {
     window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+  }
+
+  constructor() {
+    // El effect de Angular (no de NgRx) se ejecuta cada vez que el Signal cambia
+    effect(() => {
+      const success = this.successMessage(); // Accedemos al valor del Signal
+      if (success) {
+        this.isLoginMode = true; // O false, según lo que necesites tras el registro
+        // Opcional: resetear el formulario aquí
+
+      }
+    });
   }
 
 

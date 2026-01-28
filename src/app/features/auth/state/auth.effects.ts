@@ -29,6 +29,7 @@ export class AuthEffects {
       exhaustMap(action =>
         this.loginService.login(action.credentials).pipe(
           map(res => {
+            console.log(res)
             this.cookieService.set(
               'auth_token',
               res.token,
@@ -38,7 +39,6 @@ export class AuthEffects {
               true,
               'Strict'
             );
-            this.router.navigate(['/profile']);
             return loginSuccess({ user: res.user });
           }),
           catchError(error => of(loginFailure({ error })))
@@ -85,9 +85,13 @@ export class AuthEffects {
       exhaustMap(action =>
         this.loginService.register(action.credentials).pipe(
           map(res => {
+            console.log(res);
             return registerUserSuccess();
           }),
-          catchError(error => of(registerUserFailure({ error })))
+          catchError(error => {
+            console.error('Error en el registro:', error);
+            return of(registerUserFailure({ error }));
+          })
         )
       )
     )
@@ -101,5 +105,14 @@ export class AuthEffects {
         loadFriends()
       ])
     )
+  );
+
+  navigateToProfile$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(loginSuccess),
+        tap(() => this.router.navigate(['/profile']))
+      ),
+    { dispatch: false }
   );
 }

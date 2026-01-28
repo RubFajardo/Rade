@@ -28,9 +28,9 @@ export const userReducer = createReducer(
   initialState,
   on(loginUser, (state) => ({ ...state, loading: true, errorLogin: null })),
   on(loginSuccess, (state, { user }) => ({ ...state, user, loading: false })),
-  on(loginFailure, (state, { error }) => ({ ...state, user: null, errorLogin: error, loading: false })),
+  on(loginFailure, (state, { error }) => ({ ...state, user: null, errorLogin: error.error.message, loading: false })),
   on(logoutUser, (state) => ({...state, user: null})),
   on(registerUser, (state) => ({ ...state, loading: true, errorLogin: null })),
   on(registerUserSuccess, (state) => ({ ...state, loading: false, successMessage: "¡Registro completado con éxito! Inicia sesión para continuar." })),
-  on(registerUserFailure, (state, { error }) => ({ ...state, loading: false, errorLogin: error })),
+  on(registerUserFailure, (state, { error }) => ({ ...state, loading: false, errorLogin: error.error.message })),
 );

@@ -5,18 +5,14 @@ import {CalendarOptions} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {HabitsModel} from '../../services/habits.service';
-import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Store} from '@ngrx/store';
 import {Habits} from '../../components/habits/habits';
 import {EditProfile, ProfileData} from '../../components/edit-profile/edit-profile';
 import {selectUser} from '../../../auth/state/auth.selectors';
-import {UserStore} from '../../../auth/models/store.model';
 import {EditAvatar} from '../../components/edit-avatar/edit-avatar';
 import {selectFriends} from '../../../friends/state/friends.selectors';
 import {toSignal} from '@angular/core/rxjs-interop';
-
-//import {EditProfileModal, ProfileData} from './edit-profile';
 
 @Component({
   selector: 'app-profile',
@@ -71,7 +67,6 @@ export class Profile {
   currentMonth: number = new Date().getMonth() + 1;
   currentYear: number = new Date().getFullYear();
   selectedDate: string | null = null;
-  user$!: Observable<UserStore | null>;
 
   constructor(private http: HttpClient) {}
 
