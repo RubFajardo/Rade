@@ -1,10 +1,10 @@
-# 🚀 Rade: Tu Diario Digital de Hábitos
+# Rade: Tu Diario Digital de Hábitos
 
 Una plataforma moderna diseñada para ayudarte a tomar el control de tus hábitos de bienestar sin la complejidad de las herramientas de *tracking* tradicionales. **Wellness Tracker** te permite monitorizar tu ejercicio, sueño y dieta de forma sencilla e intuitiva.
 
 Construido con una arquitectura robusta: **Angular** para un *frontend* rápido y reactivo, **Tailwind CSS** para un diseño limpio y moderno, y **Spring Boot** para un *backend* seguro y escalable.
 
-## 🛠 Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 Este proyecto está dividido en dos partes principales:
 
@@ -29,7 +29,7 @@ Este proyecto está dividido en dos partes principales:
 
 Encuentra el repositorio del back-end [aquí](https://github.com/RubFajardo/RadeAPI).
 
-## ⚙️ Configuración y Ejecución Local
+## Configuración y Ejecución Local
 
 Sigue estos pasos para poner en marcha el proyecto en tu entorno de desarrollo.
 
@@ -79,7 +79,7 @@ Asegúrate de tener instalado:
     ```
     La aplicación se abrirá automáticamente en tu navegador en `http://localhost:4200`.
 
-## 🤝 Contribuciones
+## Contribuciones
 
 ¡Las contribuciones son bienvenidas\! Si deseas mejorar el código, añadir nuevas características o reportar *bugs*, por favor sigue los pasos a continuación:
 
