@@ -7,12 +7,14 @@ import {
   loadFriendsFailure,
   loadFriendsSuccess,
   loadPendingRequests, pendingRequestsFailure,
-  pendingRequestsSuccess, rejectFriend, rejectFriendFailure, rejectFriendSuccess
+  pendingRequestsSuccess, rejectFriend, rejectFriendFailure, rejectFriendSuccess, searchFriends,
+  searchFriendsFailure, searchFriendsSuccess, sendFriendRequest, sendFriendRequestFailure, sendFriendRequestSuccess
 } from './friends.actions';
 
 export interface FriendsState {
   friends: Friends[];
   pendingRequests: PendingFriendRequest[];
+  usersSearch: Friends[];
   loadingFriends: boolean;
   loadingRequests: boolean;
   loadingAction: boolean;
@@ -22,6 +24,7 @@ export interface FriendsState {
 export const initialState: FriendsState = {
   friends: [],
   pendingRequests: [],
+  usersSearch: [],
   loadingFriends: false,
   loadingAction: false,
   loadingRequests: false,
@@ -43,4 +46,10 @@ export const friendsReducer = createReducer(
   on(rejectFriendSuccess, (state, { requestId }) => ({...state, loadingAction: false, pendingRequests: state.pendingRequests.filter(f => f.requestId != requestId)})),
   on(rejectFriendFailure, (state, { error }) => ({ ...state, error, loadingAction: false })),
   on(clearFriends, (state) => ({ ...state, pendingRequests: [], friends: [] })),
+  on(searchFriends, (state) => ({ ...state, usersSearch: [], loadingAction: true, error: null })),
+  on(searchFriendsSuccess, (state, { users }) => ({ ...state, usersSearch: users, loadingAction: false, error: null })),
+  on(searchFriendsFailure, (state, { error }) => ({ ...state, error, loadingAction: false })),
+  on(sendFriendRequest, (state) => ({ ...state, loadingAction: true, error: null })),
+  on(sendFriendRequestSuccess, (state) => ({ ...state, loadingAction: false })),
+  on(sendFriendRequestFailure, (state, { error }) => ({ ...state, error, loadingAction: false })),
   );

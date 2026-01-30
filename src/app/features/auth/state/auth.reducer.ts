@@ -9,6 +9,7 @@ import {
   registerUserSuccess
 } from './auth.actions';
 import {UserStore} from '../models/store.model';
+import {updateAvatarSuccess, updateProfileSuccess} from '../../profile/state/my-profile/profile.actions';
 
 export interface UserState {
   user: UserStore | null;
@@ -33,4 +34,6 @@ export const userReducer = createReducer(
   on(registerUser, (state) => ({ ...state, loading: true, errorLogin: null })),
   on(registerUserSuccess, (state) => ({ ...state, loading: false, successMessage: "¡Registro completado con éxito! Inicia sesión para continuar." })),
   on(registerUserFailure, (state, { error }) => ({ ...state, loading: false, errorLogin: error.error.message })),
+  on(updateProfileSuccess, (state, { user }) => ({ ...state, loading: false, error: null, user })),
+  on(updateAvatarSuccess, (state, { avatarPath }) => ({ ...state, user: state.user ? { ...state.user, profile: { ...state.user.profile, avatar: avatarPath }} : null }))
 );

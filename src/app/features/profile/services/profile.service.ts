@@ -17,4 +17,10 @@ export class ProfileService {
     return this.http.put(`${this.apiUrl}/me/update`, data);
   }
 
+  updateAvatar(data: FormData): Observable<string> {
+    return this.http.put(`${this.apiUrl}/upload-avatar`, data, {
+      responseType: 'text'
+    });
+  }
+
 }

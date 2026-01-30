@@ -33,12 +33,10 @@ export class Login {
   }
 
   constructor() {
-    // El effect de Angular (no de NgRx) se ejecuta cada vez que el Signal cambia
     effect(() => {
-      const success = this.successMessage(); // Accedemos al valor del Signal
+      const success = this.successMessage();
       if (success) {
-        this.isLoginMode = true; // O false, según lo que necesites tras el registro
-        // Opcional: resetear el formulario aquí
+        this.isLoginMode = true;
 
       }
     });

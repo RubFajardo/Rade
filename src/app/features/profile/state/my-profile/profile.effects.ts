@@ -1,12 +1,12 @@
 import {inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {Router} from '@angular/router';
-import {catchError, exhaustMap, map, of} from 'rxjs';
-import {ProfileService} from '../services/profile.service';
+import {catchError, delay, exhaustMap, map, of} from 'rxjs';
+import {ProfileService} from '../../services/profile.service';
 import {
   loadProfile,
   loadProfileFailure,
-  loadProfileSuccess,
+  loadProfileSuccess, updateAvatar, updateAvatarFailure, updateAvatarSuccess,
   updateProfile, updateProfileFailure,
   updateProfileSuccess
 } from './profile.actions';
@@ -37,11 +37,26 @@ export class ProfileEffects {
       exhaustMap(action =>
         this.profileService.updateProfile(action.profile).pipe(
           map(res => {
-            return updateProfileSuccess({ profile: res });
+            return updateProfileSuccess({ user: res });
           }),
           catchError(error => of(updateProfileFailure({ error })))
         )
       )
+    )
+  );
+
+  updateAvatar$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateAvatar),
+      exhaustMap(({ avatar }) => {
+        const formData = new FormData();
+        formData.append('file', avatar);
+
+        return this.profileService.updateAvatar(formData).pipe(
+          map((fileName) => updateAvatarSuccess({ avatarPath: fileName })),
+          catchError((error) => of(updateAvatarFailure({ error })))
+        );
+      })
     )
   );
 }

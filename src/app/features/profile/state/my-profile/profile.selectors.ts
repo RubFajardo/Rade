@@ -13,7 +13,7 @@ export const selectLoading = createSelector(
   (state) => state.loading
 );
 
-export const selectLoginError = createSelector(
+export const selectProfileError = createSelector(
   selectProfileState,
   (state) => state.error
 );

@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {ChangeDetectorRef, Component, effect, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FullCalendarModule} from '@fullcalendar/angular';
 import {CalendarOptions} from '@fullcalendar/core';
@@ -13,6 +13,7 @@ import {selectUser} from '../../../auth/state/auth.selectors';
 import {EditAvatar} from '../../components/edit-avatar/edit-avatar';
 import {selectFriends} from '../../../friends/state/friends.selectors';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {updateAvatar, updateProfile} from '../../state/my-profile/profile.actions';
 
 @Component({
   selector: 'app-profile',
@@ -25,6 +26,7 @@ export class Profile {
   isModalOpen = false;
   isEditProfileModalOpen = false;
   isUploadAvatarModalOpen = false;
+  private cdr = inject(ChangeDetectorRef);
 
   private store = inject(Store);
   friends = toSignal(this.store.select(selectFriends), { initialValue: [] });
@@ -77,25 +79,13 @@ export class Profile {
   handleProfileSave(data: ProfileData) {
     console.log('Datos de perfil guardados:', data);
 
-
-    // this.http.put('/api/user/profile', data).subscribe({
-    //   next: (response) => {
-    //     console.log('Perfil actualizado exitosamente', response);
-    //     // Actualizar el store con los nuevos datos
-    //     // this.store.dispatch(updateUserProfile({ profile: data }));
-    //     this.isEditProfileModalOpen = false;
-    //   },
-    //   error: (error) => {
-    //     console.error('Error al actualizar perfil', error);
-    //   }
-    // });
-
-    // Por ahora solo cerramos el modal
+    this.store.dispatch(updateProfile({ profile: data }))
     this.isEditProfileModalOpen = false;
   }
 
   handleAvatarUpload(data: File) {
     console.log('Datos de perfil guardados:', data);
+    this.store.dispatch(updateAvatar({ avatar: data}));
     this.isUploadAvatarModalOpen = false;
   }
 
@@ -164,7 +154,6 @@ export class Profile {
     if (!user || !user.profile) return null;
 
     return {
-      avatar: user.profile.avatar,
       name: user.name,
       age: user.profile.age,
       city: user.profile.city,
@@ -176,4 +165,5 @@ export class Profile {
   resetCalendar() {
     this.selectedDate = null;
   }
+
 }

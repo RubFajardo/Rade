@@ -3,14 +3,12 @@ import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 
 export interface ProfileData {
-  avatar: string;
   name: string;
   age: number;
   city: string;
   country: string;
   description: string;
 }
-
 
 @Component({
   selector: 'app-edit-profile',
@@ -30,7 +28,6 @@ export class EditProfile implements OnChanges {
 
   constructor(private fb: FormBuilder) {
     this.profileForm = this.fb.group({
-      avatar: ['', Validators.required],
       name: ['', [Validators.required, Validators.minLength(2)]],
       age: ['', [Validators.required, Validators.min(1), Validators.max(120)]],
       city: ['', Validators.required],
@@ -40,18 +37,8 @@ export class EditProfile implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['profileData'] && this.profileData) {
-      this.profileForm.patchValue({
-        avatar: this.profileData.avatar || '',
-        name: this.profileData.name || '',
-        age: this.profileData.age || '',
-        city: this.profileData.city || '',
-        country: this.profileData.country || '',
-        description: this.profileData.description || ''
-      });
-    }
-
-    if (changes['isOpen'] && this.isOpen) {
+    if (changes['isOpen'] && this.isOpen && this.profileData) {
+      this.profileForm.patchValue(this.profileData);
       this.isLoading = false;
     }
   }
