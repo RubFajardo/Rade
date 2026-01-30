@@ -10,10 +10,10 @@ import {
   loginSuccess,
   loginUser,
   logoutUser,
-  registerUser, registerUserFailure,
+  registerUser,
+  registerUserFailure,
   registerUserSuccess
 } from './auth.actions';
-import {loadProfile} from '../../profile/state/profile.actions';
 import {loadFriends, loadPendingRequests} from '../../friends/state/friends.actions';
 
 @Injectable()
@@ -39,9 +39,9 @@ export class AuthEffects {
               true,
               'Strict'
             );
-            return loginSuccess({ user: res.user });
+            return loginSuccess({user: res.user});
           }),
-          catchError(error => of(loginFailure({ error })))
+          catchError(error => of(loginFailure({error})))
         )
       )
     )
@@ -53,10 +53,9 @@ export class AuthEffects {
         ofType(logoutUser),
         tap(() => {
           this.cookieService.delete('auth_token', '/');
-          this.router.navigate(['/login']);
         })
       ),
-    { dispatch: false }
+    {dispatch: false}
   );
 
   initAuth$ = createEffect(() =>
@@ -69,7 +68,7 @@ export class AuthEffects {
         }
 
         return this.loginService.getCurrentUser().pipe(
-          map((user) => loginSuccess({ user })),
+          map((user) => loginSuccess({user})),
           catchError(() => {
             // Token inválido o expirado
             return of(logoutUser());
@@ -90,7 +89,7 @@ export class AuthEffects {
           }),
           catchError(error => {
             console.error('Error en el registro:', error);
-            return of(registerUserFailure({ error }));
+            return of(registerUserFailure({error}));
           })
         )
       )
@@ -113,6 +112,6 @@ export class AuthEffects {
         ofType(loginSuccess),
         tap(() => this.router.navigate(['/profile']))
       ),
-    { dispatch: false }
+    {dispatch: false}
   );
 }
