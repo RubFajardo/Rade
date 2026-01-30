@@ -10,7 +10,8 @@ import {
   loginSuccess,
   loginUser,
   logoutUser,
-  registerUser, registerUserFailure,
+  registerUser,
+  registerUserFailure,
   registerUserSuccess
 } from './auth.actions';
 import {loadProfile} from '../../profile/state/my-profile/profile.actions';
@@ -39,10 +40,9 @@ export class AuthEffects {
               true,
               'Strict'
             );
-            this.router.navigate(['/profile'])
-            return loginSuccess({ user: res.user });
+            return loginSuccess({user: res.user});
           }),
-          catchError(error => of(loginFailure({ error })))
+          catchError(error => of(loginFailure({error})))
         )
       )
     )
@@ -56,7 +56,7 @@ export class AuthEffects {
           this.cookieService.delete('auth_token', '/');
         })
       ),
-    { dispatch: false }
+    {dispatch: false}
   );
 
   initAuth$ = createEffect(() =>
@@ -93,7 +93,7 @@ export class AuthEffects {
           }),
           catchError(error => {
             console.error('Error en el registro:', error);
-            return of(registerUserFailure({ error }));
+            return of(registerUserFailure({error}));
           })
         )
       )
