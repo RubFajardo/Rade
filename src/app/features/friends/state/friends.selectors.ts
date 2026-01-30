@@ -32,3 +32,8 @@ export const selectError = createSelector(
   selectFriendsState,
   (state) => state.error
 );
+
+export const selectUsersSearch = createSelector(
+  selectFriendsState,
+  (state) => state.usersSearch
+)

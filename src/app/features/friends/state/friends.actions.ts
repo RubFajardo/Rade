@@ -57,3 +57,32 @@ export const rejectFriendFailure = createAction(
 export const clearFriends = createAction(
   '[Friends] Clear Friends'
 )
+
+export const searchFriends = createAction(
+  '[Friends] Search Friends',
+  props<{ search: string }>()
+)
+
+export const searchFriendsSuccess = createAction(
+  '[Friends] Search Friends Success',
+  props<{ users: Friends[] }>()
+)
+
+export const searchFriendsFailure = createAction(
+  '[Friends] Search Friends Failure',
+  props<{ error: any }>()
+)
+
+export const sendFriendRequest = createAction(
+  '[Friends] SendFriendRequest',
+  props<{ receiverId: number }>()
+)
+
+export const sendFriendRequestSuccess = createAction(
+  '[Friends] SendFriendRequestSuccess'
+)
+
+export const sendFriendRequestFailure = createAction(
+  '[Friends] SendFriendRequestSuccess',
+  props<{ error: any }>()
+)

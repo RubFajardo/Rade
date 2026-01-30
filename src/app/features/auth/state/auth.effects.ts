@@ -14,6 +14,7 @@ import {
   registerUserFailure,
   registerUserSuccess
 } from './auth.actions';
+import {loadProfile} from '../../profile/state/my-profile/profile.actions';
 import {loadFriends, loadPendingRequests} from '../../friends/state/friends.actions';
 
 @Injectable()
@@ -68,7 +69,10 @@ export class AuthEffects {
         }
 
         return this.loginService.getCurrentUser().pipe(
-          map((user) => loginSuccess({user})),
+          map((user) => {
+            console.log(user);
+            return loginSuccess({ user });
+          }),
           catchError(() => {
             // Token inválido o expirado
             return of(logoutUser());
@@ -106,12 +110,4 @@ export class AuthEffects {
     )
   );
 
-  navigateToProfile$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(loginSuccess),
-        tap(() => this.router.navigate(['/profile']))
-      ),
-    {dispatch: false}
-  );
 }

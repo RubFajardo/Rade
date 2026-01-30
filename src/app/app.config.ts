@@ -9,8 +9,8 @@ import { CookieService } from 'ngx-cookie-service';
 import {authInterceptor} from './core/interceptors/auth.interceptor';
 import {AuthEffects} from './features/auth/state/auth.effects';
 import {userReducer} from './features/auth/state/auth.reducer';
-import {profileReducer} from './features/profile/state/profile.reducer';
-import {ProfileEffects} from './features/profile/state/profile.effects';
+import {profileReducer} from './features/profile/state/my-profile/profile.reducer';
+import {ProfileEffects} from './features/profile/state/my-profile/profile.effects';
 import {FriendsEffects} from './features/friends/state/friends.effects';
 import {friendsReducer} from './features/friends/state/friends.reducer';
 

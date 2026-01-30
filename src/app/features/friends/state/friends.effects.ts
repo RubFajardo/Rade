@@ -8,7 +8,8 @@ import {
   loadFriendsFailure,
   loadFriendsSuccess,
   loadPendingRequests, pendingRequestsFailure,
-  pendingRequestsSuccess, rejectFriend, rejectFriendFailure, rejectFriendSuccess
+  pendingRequestsSuccess, rejectFriend, rejectFriendFailure, rejectFriendSuccess, searchFriends,
+  searchFriendsFailure, searchFriendsSuccess, sendFriendRequest, sendFriendRequestFailure, sendFriendRequestSuccess
 } from './friends.actions';
 import {catchError, exhaustMap, map, of, switchMap} from 'rxjs';
 
@@ -66,9 +67,27 @@ export class FriendsEffects {
     )
   );
 
+  searchUsers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(searchFriends),
+      exhaustMap( action => this.friendsService.searchFriends(action.search).pipe(
+        map(res => {
+          return searchFriendsSuccess({ users: res });
+        }),
+        catchError(error => of(searchFriendsFailure({ error })))
+      ))
+    )
+  )
 
-
-
-
-
+  sendFriendRequests$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(sendFriendRequest),
+      exhaustMap( action => this.friendsService.sendRequest(action.receiverId).pipe(
+        map(res => {
+          return sendFriendRequestSuccess();
+        }),
+        catchError(error => of(sendFriendRequestFailure({ error })))
+      ))
+    )
+  )
 }
