@@ -40,6 +40,7 @@ export class AuthEffects {
               true,
               'Strict'
             );
+            this.router.navigate(['/profile']);
             return loginSuccess({user: res.user});
           }),
           catchError(error => of(loginFailure({error})))

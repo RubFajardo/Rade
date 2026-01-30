@@ -20,7 +20,9 @@
               class="w-10 h-10 rounded-full overflow-hidden border-2 border-[#FFD22A] hover:border-[#ffc700] transition-colors">
               @if (user()?.profile?.avatar) {
                 <img
-                  [src]="user()!.profile!.avatar"
+                  [src]="user()?.profile?.avatar
+            ? 'http://localhost:8080/api/users/avatar/' + user()?.profile?.avatar
+            : 'https://i.pinimg.com/474x/7f/9e/f5/7f9ef552cb071c696e932222260af318.jpg'"
                   [alt]="user()?.name || 'Avatar'"
                   class="w-full h-full object-cover">
               } @else {
