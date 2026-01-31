@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-
 import {HabitsModel, HabitsService} from '../../services/habits.service';
 import {FormsModule} from '@angular/forms';
 
@@ -63,12 +62,28 @@ export class Habits {
     this.resetForm();
   }
 
-
   onSubmit() {
+    // Generar la fecha actual en formato YYYY-MM-DD
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const currentDate = `${year}-${month}-${day}`;
+
+    // Mapear el selectedWorkout al formato legible
+    let workoutName = '';
+    if (this.selectedWorkout === 'cardio') {
+      workoutName = 'Cardio';
+    } else if (this.selectedWorkout === 'superior') {
+      workoutName = 'Tren Superior';
+    } else if (this.selectedWorkout === 'inferior') {
+      workoutName = 'Tren Inferior';
+    }
+
     const data: HabitsModel = {
-      date: this.date,
-      trained: this.trained,
-      selectedWorkout: this.selectedWorkout,
+      date: currentDate,
+      trained: this.trained ?? false,
+      selectedWorkout: workoutName,
       extraTraining: this.extraTraining,
       sleepQuality: this.sleepQuality,
       meals: this.meals,
@@ -76,6 +91,9 @@ export class Habits {
       totalCalories: this.totalCalories,
       totalProteins: this.totalProteins,
     };
+
+    this.save.emit(data);
+    this.closeModal();
   }
 
   private resetForm() {
@@ -92,4 +110,3 @@ export class Habits {
     this.description = "";
   }
 }
-
