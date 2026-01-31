@@ -1,9 +1,10 @@
-import {ChangeDetectorRef, Component, effect, inject} from '@angular/core';
+import {ChangeDetectorRef, Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FullCalendarModule} from '@fullcalendar/angular';
 import {CalendarOptions} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import esLocale from '@fullcalendar/core/locales/es'; // Importa el locale
 import {HabitsModel} from '../../services/habits.service';
 import {HttpClient} from '@angular/common/http';
 import {Store} from '@ngrx/store';
@@ -29,9 +30,8 @@ export class Profile {
   private cdr = inject(ChangeDetectorRef);
 
   private store = inject(Store);
-  friends = toSignal(this.store.select(selectFriends), { initialValue: [] });
+  friends = toSignal(this.store.select(selectFriends), {initialValue: []});
   currentUser = toSignal(this.store.select(selectUser));
-
 
   habitsData: HabitsModel[] = [
     {
@@ -70,7 +70,8 @@ export class Profile {
   currentYear: number = new Date().getFullYear();
   selectedDate: string | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   handleSave(data: HabitsModel) {
     console.log('Datos de hábitos guardados:', data);
@@ -78,14 +79,13 @@ export class Profile {
 
   handleProfileSave(data: ProfileData) {
     console.log('Datos de perfil guardados:', data);
-
-    this.store.dispatch(updateProfile({ profile: data }))
+    this.store.dispatch(updateProfile({profile: data}))
     this.isEditProfileModalOpen = false;
   }
 
   handleAvatarUpload(data: File) {
     console.log('Datos de perfil guardados:', data);
-    this.store.dispatch(updateAvatar({ avatar: data}));
+    this.store.dispatch(updateAvatar({avatar: data}));
     this.isUploadAvatarModalOpen = false;
   }
 
@@ -105,13 +105,16 @@ export class Profile {
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
-    height: 550,
-    selectable: true,
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: '',
+      right: ''
     },
+    locale: esLocale, // Ya importado arriba
+    firstDay: 1,
+    height: 'auto',
+    dayCellClassNames: 'custom-day-cell',
+    dayHeaderClassNames: 'custom-header', // Cambiado de headerClassNames
     dateClick: (info) => this.onDateClick(info.dateStr),
     datesSet: (arg) => this.onMonthChange(arg.view.currentStart),
     dayCellDidMount: (arg) => {
@@ -123,11 +126,24 @@ export class Profile {
       const habit = this.habitsData.find(h => h.date === cellDate);
 
       if (habit) {
-        arg.el.style.backgroundColor = habit.trained ? '#bbf7d0' : '#fecaca';
+        // Colores personalizados para días con hábitos
+        arg.el.style.backgroundColor = habit.trained ? '#22c55e' : '#ef4444';
         arg.el.style.borderRadius = '8px';
         arg.el.style.transition = 'all 0.2s';
-      } else {
-        arg.el.style.backgroundColor = 'white';
+        arg.el.style.opacity = '0.2';
+
+        // Agregar un indicador más sutil
+        const indicator = document.createElement('div');
+        indicator.style.position = 'absolute';
+        indicator.style.bottom = '4px';
+        indicator.style.left = '50%';
+        indicator.style.transform = 'translateX(-50%)';
+        indicator.style.width = '6px';
+        indicator.style.height = '6px';
+        indicator.style.borderRadius = '50%';
+        indicator.style.backgroundColor = habit.trained ? '#fbbf24' : '#ef4444';
+        arg.el.style.position = 'relative';
+        arg.el.appendChild(indicator);
       }
     }
   };
@@ -165,5 +181,4 @@ export class Profile {
   resetCalendar() {
     this.selectedDate = null;
   }
-
 }
