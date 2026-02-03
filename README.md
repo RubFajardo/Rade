@@ -12,7 +12,7 @@ Este proyecto está dividido en dos partes principales:
 
 | Tecnología | Descripción |
 | :--- | :--- |
-| **Angular** | Framework principal para construir la interfaz de usuario (SPA). |
+| **Angular 20** | Framework principal para construir la interfaz de usuario (SPA). |
 | **TypeScript** | Lenguaje para una base de código más limpia y mantenible. |
 | **Tailwind CSS** | Framework de CSS *utility-first* para un diseño rápido y responsive. |
 | **npm** | Gestor de paquetes y automatización de tareas. |
@@ -21,9 +21,9 @@ Este proyecto está dividido en dos partes principales:
 
 | Tecnología | Descripción | |
 | :--- | :--- | :--- |
-| **Spring Boot** | Framework para el desarrollo de la API REST robusta y con configuración mínima. |
+| **Spring Boot 3.2** | Framework para el desarrollo de la API REST robusta y con configuración mínima. |
 | **Spring Security** | Manejo de autenticación (JWT/OAuth2) y autorización. |
-| **Java** | Lenguaje de programación principal. |
+| **Java 17** | Lenguaje de programación principal. |
 | **Gradle** | Herramienta de gestión de dependencias y construcción de proyectos. |
 | **PostgreSQL** | Base de datos relacional para almacenamiento de datos de hábitos y usuarios. |
 
