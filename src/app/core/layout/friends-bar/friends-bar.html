@@ -1,11 +1,22 @@
 <div class="window shadow-lg rounded-t-xl overflow-hidden ">
 
-  <div class="top-bar cursor-pointer bg-amber-400 p-3 flex justify-between items-center" (click)="toggleCollapse()">
+  <div class="top-bar cursor-pointer bg-amber-400  p-3 flex justify-between items-center "
+       (click)="toggleCollapse()">
     <div class="flex items-center gap-2">
-      <img class="w-8 h-8 rounded-full" [src]="currentUser()?.profile?.avatar
-            ? 'http://localhost:8080/api/users/avatar/' + currentUser()?.profile?.avatar
-            : 'https://i.pinimg.com/474x/7f/9e/f5/7f9ef552cb071c696e932222260af318.jpg'"
-           alt="Avatar">
+      <div
+        class="w-10 h-10 rounded-full overflow-hidden border-2 border-[#FFD22A] hover:border-[#ffc700] transition-colors"
+      >
+        @if (currentUser()?.profile?.avatar) {
+          <img [src]="currentUser()?.profile?.avatar" alt="Avatar" class="w-full h-full object-cover">
+        } @else {
+          <div
+            class="w-full h-full bg-gradient-to-br from-[#FFD22A] to-[#ffc700] flex items-center justify-center text-black font-bold text-xl">
+            {{ (currentUser()?.name?.[0] || 'U').toUpperCase() }}
+
+          </div>
+        }
+      </div>
+
       <span class="font-bold text-lg">Friends</span>
     </div>
     <span
@@ -71,7 +82,8 @@
         @if (pendingRequests().length > 0) {
           <div class="max-h-96 overflow-y-auto pr-1 space-y-1">
             @for (request of pendingRequests(); track request.requestId) {
-              <div class="flex items-center gap-3 p-3 rounded-xl shadow-sm hover:bg-slate-700/50 transition-all duration-200">
+              <div
+                class="flex items-center gap-3 p-3 rounded-xl shadow-sm hover:bg-slate-700/50 transition-all duration-200">
 
                 <img
                   [src]="request.sender.avatar || 'assets/default-avatar.png'"
