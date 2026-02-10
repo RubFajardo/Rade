@@ -3,7 +3,9 @@ import {Friends} from '../models/friends.model';
 import {PendingFriendRequest} from '../models/friends-request.model';
 
 export const loadFriends = createAction(
-  '[Friends] Load Friends');
+  '[Friends] Load Friends',
+  props<{ userId: number }>()
+);
 
 export const loadFriendsSuccess = createAction(
   '[Friends] Load Friends Success',

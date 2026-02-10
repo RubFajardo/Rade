@@ -1,11 +1,16 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import {ProfileState} from './profile.reducer';
+import {ProfileState} from './my-profile.reducer';
 
 export const selectProfileState = createFeatureSelector<ProfileState>('profile');
 
-export const selectProfile = createSelector(
+export const selectVisitedProfile = createSelector(
   selectProfileState,
-  (state) => state.profile
+  (state) => state.visitedProfile
+);
+
+export const selectLoadingVisitedProfile = createSelector(
+  selectProfileState,
+  (state) => state.loadingVisitedProfile
 );
 
 export const selectLoading = createSelector(

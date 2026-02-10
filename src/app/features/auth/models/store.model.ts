@@ -1,7 +1,7 @@
 import {UserProfile} from './user-profile.model';
 
 export interface UserStore {
-  id: string;
+  id: number;
   email: string;
   name: string;
   profile: UserProfile;
@@ -11,3 +11,4 @@ export interface UserStore {
     friends: boolean;
   }
 }
+ 

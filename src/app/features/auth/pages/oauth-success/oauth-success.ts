@@ -25,6 +25,7 @@ export class OauthSuccess implements OnInit {
   private store = inject(Store);
 
   ngOnInit(): void {
+
     // Capturamos el token de los parámetros de la URL
     this.route.queryParams.subscribe(params => {
       const token = params['token'];

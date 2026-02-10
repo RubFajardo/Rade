@@ -9,7 +9,7 @@ import {
   registerUserSuccess
 } from './auth.actions';
 import {UserStore} from '../models/store.model';
-import {updateAvatarSuccess, updateProfileSuccess} from '../../profile/state/my-profile/profile.actions';
+import {updateAvatarSuccess, updateProfileSuccess} from '../../profile/state/my-profile/my-profile.actions';
 
 export interface UserState {
   user: UserStore | null;

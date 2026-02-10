@@ -3,11 +3,13 @@ import {ProfileData} from '../../components/edit-profile/edit-profile';
 import {UserStore} from '../../../auth/models/store.model';
 
 export const loadProfile = createAction(
-  '[User] Load Profile');
+  '[User] Load Profile',
+  props<{ userId: number }>()
+  );
 
 export const loadProfileSuccess = createAction(
   '[User] Load Profile Success',
-  props<{ profile: ProfileData}>()
+  props<{ profile: UserStore}>()
 );
 
 export const loadProfileFailure = createAction(

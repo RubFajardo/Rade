@@ -14,7 +14,6 @@ import {
   registerUserFailure,
   registerUserSuccess
 } from './auth.actions';
-import {loadProfile} from '../../profile/state/my-profile/profile.actions';
 import {loadFriends, loadPendingRequests} from '../../friends/state/friends.actions';
 
 @Injectable()
@@ -55,6 +54,7 @@ export class AuthEffects {
         ofType(logoutUser),
         tap(() => {
           this.cookieService.delete('auth_token', '/');
+          this.router.navigate(['/']);
         })
       ),
     {dispatch: false}
@@ -66,7 +66,7 @@ export class AuthEffects {
       map(() => this.cookieService.get('auth_token')),
       switchMap((token) => {
         if (!token) {
-          return of(logoutUser());
+          return of({ type: '[Auth] No Token Found' });
         }
 
         return this.loginService.getCurrentUser().pipe(
@@ -104,9 +104,9 @@ export class AuthEffects {
   loadFriendsAfterLogin$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loginSuccess),
-      mergeMap(() => [
+      mergeMap(({ user }) => [
         loadPendingRequests(),
-        loadFriends()
+        loadFriends({ userId: user.id })
       ])
     )
   );

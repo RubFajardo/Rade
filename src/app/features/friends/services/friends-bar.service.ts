@@ -26,8 +26,8 @@ export class FriendsService {
     return this.http.get(`${this.apiUrl}/request/pending`);
   }
 
-  getFriends(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/getFriends`);
+  getFriends(userId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getFriends/${userId}`);
   }
 
   searchFriends(query: string): Observable<Friends[]> {

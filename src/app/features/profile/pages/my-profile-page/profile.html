@@ -1,5 +1,4 @@
-@if (currentUser()) {
-  <div class="min-h-screen text-white p-6 pt-24">
+<div class="min-h-screen text-white p-6 pt-24">
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
@@ -10,7 +9,10 @@
             <div class="bg-[#1f1f1f] rounded-3xl p-8 flex gap-4">
               <div class="relative rounded-2xl w-36 h-36 overflow-hidden group">
                 @if (currentUser()?.profile?.avatar) {
-                  <img [src]="currentUser()?.profile?.avatar" alt="Avatar" class="w-full h-full object-cover">
+                  <img [src]="currentUser()?.profile?.avatar
+            ? 'http://localhost:8080/api/users/avatar/' + currentUser()?.profile?.avatar
+            : 'https://i.pinimg.com/474x/7f/9e/f5/7f9ef552cb071c696e932222260af318.jpg'"
+                       [alt]="currentUser()?.name || 'Avatar'" class="w-full h-full object-cover">
                 } @else {
                   <div
                     class="w-full h-full bg-gradient-to-br from-[#FFD22A] to-[#ffc700] flex items-center justify-center text-black font-bold text-xl">
@@ -249,5 +251,5 @@
 
 
     </div>
-  </div>
-}
+</div>
+

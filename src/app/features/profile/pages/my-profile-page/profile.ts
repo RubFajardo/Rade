@@ -6,7 +6,6 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es';
 import {HabitsModel} from '../../services/habits.service';
-import {HttpClient} from '@angular/common/http';
 import {Store} from '@ngrx/store';
 import {Habits} from '../../components/habits/habits';
 import {EditProfile, ProfileData} from '../../components/edit-profile/edit-profile';
@@ -14,7 +13,7 @@ import {selectUser} from '../../../auth/state/auth.selectors';
 import {EditAvatar} from '../../components/edit-avatar/edit-avatar';
 import {selectFriends} from '../../../friends/state/friends.selectors';
 import {toSignal} from '@angular/core/rxjs-interop';
-import {updateAvatar, updateProfile} from '../../state/my-profile/profile.actions';
+import {updateAvatar, updateProfile} from '../../state/my-profile/my-profile.actions';
 
 @Component({
   selector: 'app-profile',
@@ -71,8 +70,7 @@ export class Profile {
   currentYear: number = new Date().getFullYear();
   selectedDate: string | null = null;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor() {}
 
   handleSave(data: HabitsModel) {
     console.log('Datos de hábitos guardados:', data);

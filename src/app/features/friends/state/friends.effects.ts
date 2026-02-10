@@ -22,7 +22,7 @@ export class FriendsEffects {
   loadFriends$ = createEffect(() =>
   this.actions$.pipe(
     ofType(loadFriends),
-    switchMap( () => this.friendsService.getFriends().pipe(
+    switchMap( (action) => this.friendsService.getFriends(action.userId).pipe(
       map(res => {
         return loadFriendsSuccess({ friends: res });
       }),

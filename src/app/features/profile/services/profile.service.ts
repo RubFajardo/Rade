@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ProfileData} from '../components/edit-profile/edit-profile';
+import {UserStore} from '../../auth/models/store.model';
 
 @Injectable({providedIn: 'root'})
 export class ProfileService {
@@ -9,8 +10,8 @@ export class ProfileService {
 
   constructor(private http: HttpClient) {}
 
-  loadOwnProfile(): Observable<ProfileData> {
-    return this.http.get<ProfileData>(`${this.apiUrl}/me`, {});
+  loadUserProfile(userId: number): Observable<UserStore> {
+    return this.http.get<UserStore>(`${this.apiUrl}/${userId}`);
   }
 
   updateProfile(data: ProfileData): Observable<any> {
