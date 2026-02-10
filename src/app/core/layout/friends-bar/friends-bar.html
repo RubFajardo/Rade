@@ -1,161 +1,161 @@
-<div class="window shadow-lg rounded-t-xl overflow-hidden ">
+<div
+  class="fixed bg-[#1f1f1f] flex flex-col z-50 bottom-0 right-0 w-80 shadow-lg rounded-t-xl overflow-hidden">
 
-  <div class="top-bar cursor-pointer bg-amber-400  p-3 flex justify-between items-center "
+  <div class="top-bar cursor-pointer bg-amber-400 p-3 flex justify-between items-center"
        (click)="toggleCollapse()">
     <div class="flex items-center gap-2">
       <div
-        class="w-10 h-10 rounded-full overflow-hidden border-2 border-[#FFD22A] hover:border-[#ffc700] transition-colors"
-      >
+        class="w-10 h-10 rounded-full overflow-hidden border-2 border-[#FFD22A] hover:border-[#ffc700] transition-colors">
         @if (currentUser()?.profile?.avatar) {
           <img [src]="currentUser()?.profile?.avatar" alt="Avatar" class="w-full h-full object-cover">
         } @else {
           <div
             class="w-full h-full bg-gradient-to-br from-[#FFD22A] to-[#ffc700] flex items-center justify-center text-black font-bold text-xl">
             {{ (currentUser()?.name?.[0] || 'U').toUpperCase() }}
-
           </div>
         }
       </div>
-
-      <span class="font-bold text-lg">Friends</span>
+      <span class="font-bold text-lg">Amigos</span>
     </div>
     <span
       class="inline-block transition-transform duration-300 rotate-90 me-2"
-      [class.rotate-[-90deg]]="isCollapsed"
-    >
-  ❮
-</span>
+      [class.rotate-[-90deg]]="isCollapsed">
+      ❮
+    </span>
   </div>
+
   @if (isCollapsed) {
-    <ul class="flex flex-wrap text-sm font-medium text-center text-body justify-center ">
-      <li class="me-2">
-        <button (click)="isFriendsMode = true" class=" text-white inline-block px-4 py-3 rounded-2xl bg-black  mt-2"
-                aria-current="page">Friends
+    <!-- Tabs estilo LinkedIn -->
+    <div class="border-b border-gray-700">
+      <nav class="flex -mb-px">
+        <button
+          (click)="isFriendsMode = true"
+          class="flex-1 py-4 px-1 text-center border-b-2 font-medium text-sm transition-all duration-200"
+          [ngClass]="{
+            'border-amber-400 text-white': isFriendsMode,
+            'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-600': !isFriendsMode
+          }">
+          Amigos
         </button>
-      </li>
-      <li class="me-2">
-        <button (click)="isFriendsMode = false"
-                class="text-white inline-block px-4 py-3 rounded-2xl mt-2 bg-black rounded-base hover:text-heading hover:bg-neutral-secondary-soft">
-          Pending requests
+
+        <button
+          (click)="isFriendsMode = false"
+          class="flex-1 py-4 px-1 text-center border-b-2 font-medium text-sm transition-all duration-200"
+          [ngClass]="{
+            'border-amber-400 text-white': !isFriendsMode,
+            'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-600': isFriendsMode
+          }">
+          Solicitudes pendientes
         </button>
-      </li>
-    </ul>
-    <div class="content-area">
+      </nav>
+    </div>
+
+    <!-- Contenido -->
+    <div class="flex flex-col p-4">
       @if (isFriendsMode) {
-        <input [(ngModel)]="searchQuery" class="search-bar" type="text">
+        <!-- Barra de búsqueda -->
+        <div class="mb-4">
+          <input
+            [(ngModel)]="searchQuery"
+            type="text"
+            placeholder="Buscar amigos..."
+            class="w-full px-4 py-2 bg-[#2a2a2a] text-white rounded-lg border border-gray-700 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400 transition-colors">
+        </div>
 
         @if (filteredFriends().length > 0) {
-          <div class="max-h-96 overflow-y-auto pr-1 space-y-1">
+          <div class="max-h-96 overflow-y-auto space-y-2">
             @for (friend of filteredFriends(); track friend.id) {
-
               <div
-                class="flex items-center gap-3 p-2 rounded-xl
-             hover:bg-slate-700/50 transition-all duration-200 group"
-              >
+                class="flex items-center gap-3 p-3 rounded-lg hover:bg-[#2a2a2a] transition-all duration-200 cursor-pointer">
                 <img
                   [src]="friend.avatar || 'assets/default-avatar.png'"
                   [alt]="friend.name"
-                  class="w-12 h-12 rounded-full object-cover shadow-sm"
+                  class="w-12 h-12 rounded-full object-cover ring-2 ring-gray-700"
                 />
 
-                <div class="flex flex-col min-w-0">
-        <span class="text-left font-medium text-white truncate">
-          {{ friend.name }}
-        </span>
-                  <span class="text-sm text-left text-white truncate">
-          {{ friend.description }}
-        </span>
+                <div class="flex flex-col min-w-0 flex-1">
+                  <span class="text-sm font-semibold text-white truncate">
+                    {{ friend.name }}
+                  </span>
+                  <span class="text-xs text-gray-400 truncate">
+                    {{ friend.description }}
+                  </span>
                 </div>
               </div>
-
             }
           </div>
         } @else {
-          <p class="text-white">No tienes amigos agregados todavía</p>
-          <button class="mt-4 px-6 py-2 mb-5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl transition-colors">
-            Buscar amigos
-          </button>
+          <div class="flex flex-col items-center justify-center py-8 text-center">
+            <svg class="w-16 h-16 text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            <p class="text-gray-400 mb-4">No tienes amigos agregados todavía</p>
+            <button
+              class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-medium rounded-lg transition-colors duration-200">
+              Buscar amigos
+            </button>
+          </div>
         }
 
       } @else {
-
+        <!-- Solicitudes pendientes -->
         @if (pendingRequests().length > 0) {
-          <div class="max-h-96 overflow-y-auto pr-1 space-y-1">
+          <div class="max-h-96 overflow-y-auto space-y-2">
             @for (request of pendingRequests(); track request.requestId) {
               <div
-                class="flex items-center gap-3 p-3 rounded-xl shadow-sm hover:bg-slate-700/50 transition-all duration-200">
-
+                class="flex items-center gap-3 p-3 rounded-lg hover:bg-[#2a2a2a] transition-all duration-200">
                 <img
                   [src]="request.sender.avatar || 'assets/default-avatar.png'"
                   [alt]="request.sender.name"
-                  class="w-12 h-12 rounded-full object-cover shadow-sm"
+                  class="w-12 h-12 rounded-full object-cover ring-2 ring-gray-700"
                 />
 
-                <div class="flex flex-col min-w-0 flex-grow">
-         <span class="text-left font-bold text-white truncate">
-          {{ request.sender.name }}
-         </span>
-
-                  <span class="text-sm text-left text-white truncate">
-          {{ request.sender.description }}
-         </span>
+                <div class="flex flex-col min-w-0 flex-1">
+                  <span class="text-sm font-semibold text-white truncate">
+                    {{ request.sender.name }}
+                  </span>
+                  <span class="text-xs text-gray-400 truncate">
+                    {{ request.sender.description }}
+                  </span>
                 </div>
 
-                <div class="flex items-center gap-2 ml-auto flex-shrink-0">
+                <div class="flex items-center gap-2 flex-shrink-0">
                   <button
-                    class="w-8 h-8 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+                    class="w-9 h-9 flex items-center justify-center bg-green-600 hover:bg-green-700 text-white rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-[#1f1f1f]"
                     aria-label="Aceptar solicitud"
-                  >
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      />
+                    title="Aceptar">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                     </svg>
                   </button>
 
                   <button
-                    class="w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                    class="w-9 h-9 flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-[#1f1f1f]"
                     aria-label="Rechazar solicitud"
-                  >
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
+                    title="Rechazar">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                   </button>
                 </div>
-
               </div>
             }
           </div>
-
-
         } @else {
-          <p class="text-white mt-5">No tienes solicitudes pendientes</p>
-          <button class="mt-4 px-6 py-2 mb-5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl transition-colors">
-            Buscar amigos
-          </button>
+          <div class="flex flex-col items-center justify-center py-8 text-center">
+            <svg class="w-16 h-16 text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            <p class="text-gray-400 mb-4">No tienes solicitudes pendientes</p>
+            <button
+              class="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-medium rounded-lg transition-colors duration-200">
+              Buscar amigos
+            </button>
+          </div>
         }
       }
     </div>
   }
 </div>
-

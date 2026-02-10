@@ -1,234 +1,282 @@
 <div class="min-h-screen flex justify-center py-20">
 
   <!-- CONTENEDOR CENTRADO -->
-  <div class="w-7xl bg-white max-h-[1000px] shadow-xl flex overflow-hidden rounded-3xl">
+  <div class="w-7xl flex overflow-hidden rounded-3xl text-white">
 
     <!-- SIDEBAR -->
-    <div class="flex w-full h-screen bg-gray-100">
+    <div class="flex w-full gap-6 ">
 
-      <!-- sidebar -->
-      <div class="hidden md:flex flex-col w-64 bg-gray-800">
+      <div class="hidden md:flex flex-col w-80 bg-[#1f1f1f] rounded-3xl p-6 h-fit">
 
-        <div class="flex flex-col flex-1 overflow-y-auto">
-          <nav class="flex flex-col flex-1 overflow-y-auto bg-gradient-to-b from-gray-700 to-blue-500 px-2 py-4 gap-10 rounded-2xl">
-            <div>
-              <a href="#" class="flex items-center px-4 py-2 text-gray-100 hover:bg-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-                Rade
-              </a>
+        <!-- Título -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-white mb-1">Gestión de Amigos</h2>
+          <p class="text-sm text-gray-400">Administra tu red social</p>
+        </div>
+
+        <!-- Botones de navegación -->
+        <nav class="flex flex-col gap-3">
+          <button
+            (click)="tabSelected = 'searchTab'"
+            [class]="tabSelected === 'searchTab'
+            ? 'flex items-center px-4 py-3 text-white bg-amber-400 rounded-xl transition-colors font-medium'
+            : 'flex items-center px-4 py-3 text-gray-400 hover:text-white hover:bg-[#252525] rounded-xl transition-colors'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32"
+                 class="mr-3">
+              <path fill="currentColor"
+                    d="M12 4a5 5 0 1 1-5 5a5 5 0 0 1 5-5m0-2a7 7 0 1 0 7 7a7 7 0 0 0-7-7m10 28h-2v-5a5 5 0 0 0-5-5H9a5 5 0 0 0-5 5v5H2v-5a7 7 0 0 1 7-7h6a7 7 0 0 1 7 7zm0-26h10v2H22zm0 5h10v2H22zm0 5h7v2h-7z"/>
+            </svg>
+            Añadir amigos
+          </button>
+
+          <button
+            (click)="tabSelected = 'friendsTab'"
+            [class]="tabSelected === 'friendsTab'
+            ? 'flex items-center px-4 py-3 text-white bg-amber-400 rounded-xl transition-colors font-medium'
+            : 'flex items-center px-4 py-3 text-gray-400 hover:text-white hover:bg-[#252525] rounded-xl transition-colors'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                 class="mr-3">
+              <path fill="none" stroke="currentColor" stroke-width="2"
+                    d="M16 7h3v4h-3zm-7 8h11M9 11h4M9 7h4M6 18.5a2.5 2.5 0 1 1-5 0V7h5.025M6 18.5V3h17v15.5a2.5 2.5 0 0 1-2.5 2.5h-17"/>
+            </svg>
+            Mis amigos
+          </button>
+
+          <button
+            (click)="tabSelected = 'blockedTab'"
+            [class]="tabSelected === 'blockedTab'
+            ? 'flex items-center px-4 py-3 text-white bg-amber-400 rounded-xl transition-colors font-medium'
+            : 'flex items-center px-4 py-3 text-gray-400 hover:text-white hover:bg-[#252525] rounded-xl transition-colors'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32"
+                 class="mr-3">
+              <path fill="currentColor"
+                    d="M21.053 20.8c-1.132-.453-1.584-1.698-1.584-1.698s-.51.282-.51-.51s.51.51 1.02-2.548c0 0 1.413-.397 1.13-3.68h-.34s.85-3.51 0-4.7c-.85-1.188-1.188-1.98-3.057-2.547s-1.188-.454-2.547-.396c-1.36.058-2.492.793-2.492 1.19c0 0-.85.056-1.188.396c-.34.34-.906 1.924-.906 2.32s.283 3.06.566 3.625l-.337.114c-.284 3.283 1.13 3.68 1.13 3.68c.51 3.058 1.02 1.756 1.02 2.548s-.51.51-.51.51s-.452 1.245-1.584 1.698c-1.132.452-7.416 2.886-7.927 3.396c-.512.51-.454 2.888-.454 2.888H29.43s.06-2.377-.452-2.888c-.51-.51-6.795-2.944-7.927-3.396zm-12.47-.172c-.1-.18-.148-.31-.148-.31s-.432.24-.432-.432s.432.432.864-2.16c0 0 1.2-.335.96-3.118h-.29s.144-.59.238-1.334a10.01 10.01 0 0 1 .037-.996l.038-.426c-.02-.492-.107-.94-.312-1.226c-.72-1.007-1.008-1.68-2.59-2.16c-1.584-.48-1.01-.384-2.16-.335c-1.152.05-2.112.672-2.112 1.01c0 0-.72.047-1.008.335c-.27.27-.705 1.462-.757 1.885v.28c.048.654.26 2.45.47 2.873l-.286.096c-.24 2.782.96 3.118.96 3.118c.43 2.59.863 1.488.863 2.16s-.432.43-.432.43s-.383 1.058-1.343 1.44l-.232.092v5.234h.575c-.03-1.278.077-2.927.746-3.594c.357-.355 1.524-.94 6.353-2.862zm22.33-9.056c-.04-.378-.127-.715-.292-.946c-.718-1.008-1.007-1.68-2.59-2.16c-1.583-.48-1.007-.384-2.16-.335c-1.15.05-2.11.672-2.11 1.01c0 0-.72.047-1.008.335c-.27.272-.71 1.472-.758 1.89h.033l.08.914c.02.23.022.435.027.644c.09.666.21 1.35.33 1.59l-.286.095c-.24 2.782.96 3.118.96 3.118c.432 2.59.863 1.488.863 2.16s-.43.43-.43.43s-.054.143-.164.34c4.77 1.9 5.927 2.48 6.28 2.833c.67.668.774 2.316.745 3.595h.48V21.78l-.05-.022c-.96-.383-1.344-1.44-1.344-1.44s-.433.24-.433-.43s.433.43.864-2.16c0 0 .804-.23.963-1.84V14.66c0-.018 0-.033-.003-.05h-.29s.216-.89.293-1.862z"/>
+            </svg>
+            Bloqueados
+          </button>
+        </nav>
+
+        <!-- Info adicional -->
+        <div class="mt-8 pt-6 border-t border-gray-700">
+          <div class="space-y-3 text-sm">
+            <div class="flex items-center justify-between">
+              <span class="text-gray-400">Total amigos:</span>
+              <span class="text-amber-400 font-semibold">{{ friends().length }}</span>
             </div>
-            <div class="flex flex-col flex-1 gap-3">
-              <a href="/" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="margin-right: 8px">
-                  <path fill="currentColor" fill-rule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6l2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2z" clip-rule="evenodd" />
-                </svg>
-                Home
-              </a>
-              <button (click)="tabSelected = 'searchTab'" class="cursor-pointer flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" style="margin-right: 8px">
-                  <path fill="currentColor" d="M12 4a5 5 0 1 1-5 5a5 5 0 0 1 5-5m0-2a7 7 0 1 0 7 7a7 7 0 0 0-7-7m10 28h-2v-5a5 5 0 0 0-5-5H9a5 5 0 0 0-5 5v5H2v-5a7 7 0 0 1 7-7h6a7 7 0 0 1 7 7zm0-26h10v2H22zm0 5h10v2H22zm0 5h7v2h-7z" />
-                </svg>
-                Añadir amigos
-              </button>
-              <button (click)="tabSelected = 'friendsTab'" class="cursor-pointer flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="margin-right: 8px">
-                  <path fill="none" stroke="currentColor" stroke-width="2" d="M16 7h3v4h-3zm-7 8h11M9 11h4M9 7h4M6 18.5a2.5 2.5 0 1 1-5 0V7h5.025M6 18.5V3h17v15.5a2.5 2.5 0 0 1-2.5 2.5h-17" />
-                </svg>
-                Mis amigos
-              </button>
-              <button (click)="tabSelected = 'blockedTab'" class="cursor-pointer flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-400 hover:bg-opacity-25 rounded-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" style="margin-right: 8px">
-                  <path fill="currentColor" d="M21.053 20.8c-1.132-.453-1.584-1.698-1.584-1.698s-.51.282-.51-.51s.51.51 1.02-2.548c0 0 1.413-.397 1.13-3.68h-.34s.85-3.51 0-4.7c-.85-1.188-1.188-1.98-3.057-2.547s-1.188-.454-2.547-.396c-1.36.058-2.492.793-2.492 1.19c0 0-.85.056-1.188.396c-.34.34-.906 1.924-.906 2.32s.283 3.06.566 3.625l-.337.114c-.284 3.283 1.13 3.68 1.13 3.68c.51 3.058 1.02 1.756 1.02 2.548s-.51.51-.51.51s-.452 1.245-1.584 1.698c-1.132.452-7.416 2.886-7.927 3.396c-.512.51-.454 2.888-.454 2.888H29.43s.06-2.377-.452-2.888c-.51-.51-6.795-2.944-7.927-3.396zm-12.47-.172c-.1-.18-.148-.31-.148-.31s-.432.24-.432-.432s.432.432.864-2.16c0 0 1.2-.335.96-3.118h-.29s.144-.59.238-1.334a10.01 10.01 0 0 1 .037-.996l.038-.426c-.02-.492-.107-.94-.312-1.226c-.72-1.007-1.008-1.68-2.59-2.16c-1.584-.48-1.01-.384-2.16-.335c-1.152.05-2.112.672-2.112 1.01c0 0-.72.047-1.008.335c-.27.27-.705 1.462-.757 1.885v.28c.048.654.26 2.45.47 2.873l-.286.096c-.24 2.782.96 3.118.96 3.118c.43 2.59.863 1.488.863 2.16s-.432.43-.432.43s-.383 1.058-1.343 1.44l-.232.092v5.234h.575c-.03-1.278.077-2.927.746-3.594c.357-.355 1.524-.94 6.353-2.862zm22.33-9.056c-.04-.378-.127-.715-.292-.946c-.718-1.008-1.007-1.68-2.59-2.16c-1.583-.48-1.007-.384-2.16-.335c-1.15.05-2.11.672-2.11 1.01c0 0-.72.047-1.008.335c-.27.272-.71 1.472-.758 1.89h.033l.08.914c.02.23.022.435.027.644c.09.666.21 1.35.33 1.59l-.286.095c-.24 2.782.96 3.118.96 3.118c.432 2.59.863 1.488.863 2.16s-.43.43-.43.43s-.054.143-.164.34c4.77 1.9 5.927 2.48 6.28 2.833c.67.668.774 2.316.745 3.595h.48V21.78l-.05-.022c-.96-.383-1.344-1.44-1.344-1.44s-.433.24-.433-.43s.433.43.864-2.16c0 0 .804-.23.963-1.84V14.66c0-.018 0-.033-.003-.05h-.29s.216-.89.293-1.862z" />
-                </svg>
-
-                Bloqueados
-              </button>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-400">Solicitudes:</span>
+              <span class="text-amber-400 font-semibold">0</span>
             </div>
-          </nav>
+          </div>
         </div>
       </div>
 
-      <!-- Main content -->
-      <div class="flex-1 bg-[#1b2838] text-[#c1d1e0] p-6 font-sans overflow-y-auto">
+      <div class="flex-1 space-y-6">
 
         @if (tabSelected == "searchTab") {
-          <div class="max-w-full">
-            <h1 class="text-3xl text-center text-[#66c0f4] uppercase tracking-widest mb-2">
-              Buscar amigos
-            </h1>
-            <p class="text-center text-sm text-gray-400 mb-8">Buscar por nombre en la comunidad</p>
+          <div class="bg-[#1f1f1f] rounded-3xl p-8">
+            <div class="mb-8">
+              <h1 class="text-3xl font-bold mb-2">Buscar amigos</h1>
+              <p class="text-gray-400">Encuentra y conecta con otros usuarios de la comunidad</p>
+            </div>
 
-            <div class="flex justify-center mb-10">
-              <div class="relative w-[90%]">
+            <div class="mb-8">
+              <div class="relative max-w-2xl">
+                <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
                 <input
                   type="text"
                   [ngModel]="searchQuery()"
                   (ngModelChange)="searchQuery.set($event)"
-                  placeholder="Escribe un nombre..."
-                  class="w-full bg-[#2a475e] border-none rounded shadow-inner py-3 px-4 text-white focus:ring-2 focus:ring-[#66c0f4] outline-none transition-all"
+                  placeholder="Buscar por nombre..."
+                  class="w-full bg-[#252525] border-none rounded-xl pl-12 pr-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-amber-400 outline-none transition-all"
                 >
               </div>
             </div>
 
-            <div class="w-[90%] mx-auto h-[740px] flex flex-col">
-              <div class="flex justify-between items-center border-b border-[#3a5a78] pb-2 mb-4 shrink-0">
-                <span class="text-xs font-bold tracking-tighter text-[#66c0f4]">PERSONAS</span>
-                <span class="text-xs text-gray-500">Mostrando {{ usersSearch().length }} resultados</span>
-              </div>
+            <div class="mb-6 flex items-center justify-between">
+              <h3 class="text-lg font-bold">Resultados</h3>
+              <span class="text-sm text-gray-400">{{ usersSearch().length }} usuarios</span>
+            </div>
 
-              <div class="space-y-4 flex flex-col h-full min-h-0 overflow-hidden">
-                @if (testArray.length > 0) {
-                  <div class="flex-1 overflow-y-auto pr-2 min-h-0 space-y-4">
-                    @for (friend of testArray; track friend.id) {
+            <div class="space-y-4">
+              @if (testArray.length > 0) {
+                @for (friend of testArray; track friend.id) {
+                  <div class="bg-[#252525] rounded-2xl p-6 hover:bg-[#2a2a2a] transition-colors">
+                    <div class="flex items-center gap-4">
+                      <img
+                        class="w-16 h-16 rounded-full object-cover ring-2 ring-amber-400/30"
+                        [src]="friend.avatar"
+                        alt="Avatar">
 
-                      <div
-                        class="mb-2 relative py-8 px-6 w-full mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
-
-                        <img class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0" [src]="friend.avatar" alt="User face">
-
-                        <div class="px-3 text-center space-y-2 sm:text-left flex-grow">
-                          <div class="space-y-0.5">
-                            <p class="text-lg text-black font-semibold">
-                              {{friend.name}}
-                            </p>
-                            <p class="text-slate-500 font-medium">
-                              {{friend.description}}
-                            </p>
-                          </div>
-                        </div>
-
-                        <button class="absolute bottom-4 right-4 px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
-                          Enviar solicitud de amistad
-                        </button>
+                      <div class="flex-grow min-w-0">
+                        <h4 class="text-lg font-semibold truncate">{{ friend.name }}</h4>
+                        <p class="text-sm text-gray-400 truncate">{{ friend.description }}</p>
                       </div>
-                    }
+
+                      <button
+                        class="px-5 py-2.5 text-sm font-semibold bg-amber-400 hover:bg-amber-700 rounded-xl transition-colors whitespace-nowrap">
+                        Enviar solicitud
+                      </button>
+                    </div>
                   </div>
-                } @else {
-                  <p class="text-white">No se encontraron resultados para tu busqueda.</p>
                 }
-              </div>
+              } @else {
+                <div class="text-center py-16">
+                  <svg class="w-20 h-20 text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor"
+                       viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                  </svg>
+                  <p class="text-gray-400">No se encontraron resultados</p>
+                </div>
+              }
             </div>
           </div>
-        } @else if (tabSelected == "friendsTab") {
-          <div class="max-w-full">
-            <h1 class="text-3xl text-center mb-4 text-[#66c0f4] uppercase tracking-widest">
-              Mis amigos
-            </h1>
 
-            <div class="flex justify-center mb-10">
-              <div class="relative w-[90%]">
+        } @else if (tabSelected == "friendsTab") {
+          <div class="bg-[#1f1f1f] rounded-3xl p-8">
+            <div class="mb-8">
+              <h1 class="text-3xl font-bold mb-2">Mis amigos</h1>
+              <p class="text-gray-400">Gestiona tus conexiones y amistades</p>
+            </div>
+
+            <div class="mb-8">
+              <div class="relative max-w-2xl">
+                <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
                 <input
                   type="text"
                   [ngModel]="searchQuery()"
                   (ngModelChange)="searchQuery.set($event)"
-                  placeholder="Escribe un nombre..."
-                  class="w-full bg-[#2a475e] border-none rounded shadow-inner py-3 px-4 text-white focus:ring-2 focus:ring-[#66c0f4] outline-none transition-all"
+                  placeholder="Buscar entre tus amigos..."
+                  class="w-full bg-[#252525] border-none rounded-xl pl-12 pr-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-amber-400 outline-none transition-all"
                 >
               </div>
             </div>
 
-            <div class="w-[90%] mx-auto h-[740px] flex flex-col">
-              <div class="flex justify-between items-center border-b border-[#3a5a78] pb-2 mb-4 shrink-0">
-                <span class="text-xs font-bold tracking-tighter text-[#66c0f4]">AMIGOS</span>
-                <span class="text-xs text-gray-500">Mostrando {{ friends().length }} resultados</span>
-              </div>
+            <div class="mb-6 flex items-center justify-between">
+              <h3 class="text-lg font-bold">Mis amigos</h3>
+              <span class="text-sm text-gray-400">{{ friends().length }} amigos</span>
+            </div>
 
-              <div class="space-y-4 ">
-                @if (testArray.length > 0) {
-                  <div class="overflow-y-auto pr-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            @if (testArray.length > 0) {
+              <div
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
+                @for (friend of testArray; track friend.id) {
+                  <div class="bg-[#252525] rounded-2xl p-4 hover:bg-[#2a2a2a] transition-colors cursor-pointer">
+                    <div class="flex flex-col items-center text-center gap-3">
+                      <img
+                        class="w-16 h-16 rounded-full object-cover ring-2 ring-amber-400/30"
+                        [src]="friend.avatar"
+                        alt="Avatar">
 
-                    @for (friend of testArray; track friend.id) {
-                      <div
-                        class="relative py-8 px-6 bg-white rounded-xl shadow-lg flex flex-col sm:flex-row sm:items-center sm:space-x-6">
-
-                        <img class="block mx-auto h-20 rounded-full sm:mx-0 sm:shrink-0" [src]="friend.avatar" alt="User face">
-
-                        <div class="px-3 text-center space-y-2 sm:text-left flex-grow pb-8 sm:pb-0">
-                          <div class="space-y-0.5">
-                            <p class="text-lg text-black font-semibold truncate">
-                              {{friend.name}}
-                            </p>
-                            <p class="text-slate-500 font-medium text-sm line-clamp-2">
-                              {{friend.description}}
-                            </p>
-                          </div>
-                        </div>
-
-                        <button class="absolute bottom-2 right-2 px-3 py-1 text-xs text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600">
-                          Enviar
-                        </button>
+                      <div class="min-w-0 w-full">
+                        <h4 class="font-semibold truncate">{{ friend.name }}</h4>
+                        <p class="text-sm text-gray-400 truncate">{{ friend.description }}</p>
                       </div>
-                    }
+
+                      <button
+                        class="w-full px-4 py-2 text-sm font-semibold bg-amber-400 hover:bg-amber-700 rounded-xl transition-colors">
+                        Enviar mensaje
+                      </button>
+                    </div>
                   </div>
-                } @else {
-                  <p class="text-white">No tienes amigos agregados.</p>
                 }
               </div>
-            </div>
+            } @else {
+              <div class="text-center py-16">
+                <svg class="w-20 h-20 text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                <p class="text-gray-400 mb-4">No tienes amigos agregados</p>
+                <button class="px-6 py-2 bg-amber-400 hover:bg-amber-700 rounded-xl transition-colors">
+                  Buscar amigos
+                </button>
+              </div>
+            }
           </div>
 
         } @else if (tabSelected == "blockedTab") {
-          <div class="max-w-full">
-            <h1 class="text-3xl text-center mb-4 text-[#66c0f4] uppercase tracking-widest">
-              Usuarios bloqueados
-            </h1>
+          <div class="bg-[#1f1f1f] rounded-3xl p-8">
+            <div class="mb-8">
+              <h1 class="text-3xl font-bold mb-2">Usuarios bloqueados</h1>
+              <p class="text-gray-400">Usuarios que has bloqueado de tu red</p>
+            </div>
 
-            <div class="flex justify-center mb-10">
-              <div class="relative w-[90%]">
+            <div class="mb-8">
+              <div class="relative max-w-2xl">
+                <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
                 <input
                   type="text"
                   [ngModel]="searchQuery()"
                   (ngModelChange)="searchQuery.set($event)"
-                  placeholder="Escribe un nombre..."
-                  class="w-full bg-[#2a475e] border-none rounded shadow-inner py-3 px-4 text-white focus:ring-2 focus:ring-[#66c0f4] outline-none transition-all"
+                  placeholder="Buscar usuario bloqueado..."
+                  class="w-full bg-[#252525] border-none rounded-xl pl-12 pr-4 py-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-amber-400 outline-none transition-all"
                 >
               </div>
             </div>
 
-            <div class="w-[90%] mx-auto h-[740px] flex flex-col">
-              <div class="flex justify-between items-center border-b border-[#3a5a78] pb-2 mb-4 shrink-0">
-                <span class="text-xs font-bold tracking-tighter text-[#66c0f4]">AMIGOS</span>
-                <span class="text-xs text-gray-500">Mostrando {{ friends().length }} resultados</span>
-              </div>
+            <div class="mb-6 flex items-center justify-between">
+              <h3 class="text-lg font-bold">Bloqueados</h3>
+              <span class="text-sm text-gray-400">{{ friends().length }} usuarios</span>
+            </div>
 
-              <div class="space-y-4 ">
-                @if (testArray.length > 0) {
-                  <div class="overflow-y-auto pr-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-
-                    @for (friend of testArray; track friend.id) {
-                      <div
-                        class="relative py-8 px-6 bg-white rounded-xl shadow-lg flex flex-col sm:flex-row sm:items-center sm:space-x-6">
-
-                        <img class="block mx-auto h-20 rounded-full sm:mx-0 sm:shrink-0" [src]="friend.avatar" alt="User face">
-
-                        <div class="px-3 text-center space-y-2 sm:text-left flex-grow pb-8 sm:pb-0">
-                          <div class="space-y-0.5">
-                            <p class="text-lg text-black font-semibold truncate">
-                              {{friend.name}}
-                            </p>
-                            <p class="text-slate-500 font-medium text-sm line-clamp-2">
-                              {{friend.description}}
-                            </p>
-                          </div>
+            @if (testArray.length > 0) {
+              <div
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
+                @for (friend of testArray; track friend.id) {
+                  <div class="bg-[#252525] rounded-2xl p-4 hover:bg-[#2a2a2a] transition-colors">
+                    <div class="flex flex-col items-center text-center gap-3">
+                      <div class="relative">
+                        <img
+                          class="w-16 h-16 rounded-full object-cover ring-2 ring-gray-600/30"
+                          [src]="friend.avatar"
+                          alt="Avatar">
+                        <div class="absolute inset-0 bg-black/40 rounded-full flex items-center justify-center">
+                          <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
+                          </svg>
                         </div>
-
-                        <button class="absolute bottom-2 right-2 px-3 py-1 text-xs text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600">
-                          Enviar
-                        </button>
                       </div>
-                    }
+
+                      <div class="min-w-0 w-full">
+                        <h4 class="font-semibold truncate">{{ friend.name }}</h4>
+                        <p class="text-sm text-gray-400 truncate">{{ friend.description }}</p>
+                      </div>
+
+                      <button
+                        class="w-full px-4 py-2 text-sm font-semibold bg-red-600 hover:bg-red-700 rounded-xl transition-colors">
+                        Desbloquear
+                      </button>
+                    </div>
                   </div>
-                } @else {
-                  <p class="text-white">No tienes usuarios bloqueados.</p>
                 }
               </div>
-            </div>
+            } @else {
+              <div class="text-center py-16">
+                <svg class="w-20 h-20 text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
+                </svg>
+                <p class="text-gray-400">No tienes usuarios bloqueados</p>
+              </div>
+            }
           </div>
         }
+
       </div>
 
     </div>
